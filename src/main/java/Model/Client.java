@@ -1,17 +1,13 @@
 package Model;
 
-public class Client {
-    private int client_id;
+public class Client extends BaseObject<Integer>{
     private String client_name;
     private String adress;
 
     public Client(int clientid,String name,String adress){
-        this.client_id =clientid;
+        super(clientid);
         this.client_name=name;
         this.adress=adress;
-    }
-    public int getClient_id() {
-        return client_id;
     }
 
     public String getClient_name() {
@@ -20,10 +16,6 @@ public class Client {
 
     public String getAdress() {
         return adress;
-    }
-
-    public void setClient_id(int client_id) {
-        this.client_id = client_id;
     }
 
     public void setClient_name(String client_name) {
@@ -35,6 +27,6 @@ public class Client {
     }
 
     public String toString(){
-        return "Client ID: "+this.client_id+"; Client Name: "+this.client_name+"; Adress: "+this.adress;
+        return "Client ID: "+this.getId()+"; Client Name: "+this.client_name+"; Adress: "+this.adress;
     }
 }
