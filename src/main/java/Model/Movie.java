@@ -1,11 +1,15 @@
 package Model;
 
+import java.text.ParseException;
+
+
+
 /**
  * Movie Class to be used in the rental of different movies in the Movie rental store
  */
 public class Movie extends BaseObject<Integer>{
     private String movie_name;
-    private String release_date;//this should be YYYY-MM-DD,should change later to SimpleDateFormat
+    private String release_date;
 
     /**
      * Constructor for the Movie class
@@ -16,7 +20,8 @@ public class Movie extends BaseObject<Integer>{
     public Movie(int mid,String mname,String reldate){
         super(mid);
         this.movie_name=mname;
-        this.release_date=reldate;
+        this.release_date= reldate;
+
     }
 
     /**
