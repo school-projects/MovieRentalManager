@@ -23,7 +23,7 @@ public class Client extends BaseObject<Integer>{
      * Getter for the client's name
      * @return the name of the client
      */
-    public String getClient_name() {
+    public String getName() {
         return client_name;
     }
 
@@ -39,7 +39,7 @@ public class Client extends BaseObject<Integer>{
      * Setter for the client's name
      * @param client_name the client's new name
      */
-    public void setClient_name(String client_name) {
+    public void setName(String client_name) {
         this.client_name = client_name;
     }
 

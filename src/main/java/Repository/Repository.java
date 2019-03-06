@@ -14,7 +14,7 @@ import Exception.RepositoryException;
  * @param <TYPE>
  *     the TYPE of the id
  * @param <T>
- *     the type of the oject that uses a TYPE-type id
+ *     the type of the object that uses a TYPE-type id
  */
 public class Repository<TYPE,T extends BaseObject<TYPE>> implements IRepository<TYPE,T> {
     private Map<TYPE,T> elements;

@@ -1,9 +1,9 @@
 package Service;
 
-import Model.BaseObject;
 import Model.Movie;
 import Repository.Repository;
 import Exception.*;
+import Validation.MovieValidator;
 
 /**
  * Service for the Movie class

@@ -28,7 +28,7 @@ public class Movie extends BaseObject<Integer>{
      * Getter for the movie's name
      * @return the movie's name
      */
-    public String getMovie_name(){
+    public String getName(){
         return this.movie_name;
     }
 
@@ -36,7 +36,7 @@ public class Movie extends BaseObject<Integer>{
      * Setter for the movie's name
      * @param mname the movie's new name
      */
-    public void setMovie_name(String mname){
+    public void setName(String mname){
         this.movie_name=mname;
     }
 
@@ -44,7 +44,7 @@ public class Movie extends BaseObject<Integer>{
      * Getter for the movie's release date
      * @return the movie's initial release date
      */
-    public String getRelease_date(){
+    public String getDate(){
         return this.release_date;
     }
 
@@ -52,7 +52,7 @@ public class Movie extends BaseObject<Integer>{
      * Setter for the movie's release date
      * @param reldate the movie's new release date
      */
-    public void setRelease_date(String reldate){
+    public void setDate(String reldate){
         this.release_date=reldate;
     }
 
