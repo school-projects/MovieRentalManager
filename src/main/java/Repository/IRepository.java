@@ -1,7 +1,7 @@
 package Repository;
 
 import Model.BaseObject;
-import Exception.RepositoryException;
+import Exceptions.RepositoryException;
 /**
  * Generic Repository Interface for storing T-type objects, with TYPE-type id
  * @param <TYPE>

@@ -1,7 +1,7 @@
 package Validation;
 
 import Model.Movie;
-import Exception.ValidatorException;
+import Exceptions.ValidatorException;
 
 public class MovieValidator implements IValidator<Movie> {
 

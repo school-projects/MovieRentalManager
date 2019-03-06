@@ -2,7 +2,8 @@ package Service;
 
 import Model.Movie;
 import Repository.Repository;
-import Exception.*;
+import Exceptions.*;
+import Validation.IValidator;
 import Validation.MovieValidator;
 
 /**
@@ -11,7 +12,7 @@ import Validation.MovieValidator;
 public class MovieService {
 
     private Repository<Integer, Movie> repo;
-    private MovieValidator validator;
+    private IValidator<Movie> validator;
 
     /**
      * MovieService constructor;creates an empty repository
@@ -23,9 +24,9 @@ public class MovieService {
 
     /**
      * MovieService constructor;creates a service with a given Movie Repository
-     * @param repo
-     *            is the given repository
+     * @param repo is the given repository
      */
+
     public MovieService(Repository<Integer,Movie> repo){
         this.repo = repo;
     }
@@ -47,9 +48,10 @@ public class MovieService {
     }
 
     /**
-     * prints all movies in the repository to the screen
+     * returns all the movies in the repository
+     * @return an iterable containing all the movies
      */
-    public void printAllMovies(){
-        this.repo.findAll().forEach(System.out::println);
+    public Iterable<Movie> getAllMovies() {
+        return repo.findAll();
     }
 }

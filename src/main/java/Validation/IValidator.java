@@ -1,6 +1,6 @@
 package Validation;
 
-import Exception.ValidatorException;
+import Exceptions.ValidatorException;
 
 public interface IValidator<T> {
     void validate(T obj) throws ValidatorException;
