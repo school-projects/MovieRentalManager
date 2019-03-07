@@ -4,6 +4,7 @@ import Model.BaseObject;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 import Exceptions.RepositoryException;
 
@@ -20,36 +21,30 @@ public class Repository<TYPE, T extends BaseObject<TYPE>> implements IRepository
         this.elements = new HashMap<>();
     }
 
-    public void add(T elem) {
+    public Optional<T> add(T elem) {
         if (elem == null)
             throw new RepositoryException("invalid add! item is null!");
-        if (elements.containsKey(elem.getId()))
-            throw new RepositoryException("invalid id! item with same id already exists!");
-        elements.put(elem.getId(), elem);
+        return Optional.ofNullable(elements.putIfAbsent(elem.getId(), elem));
     }
 
-    public void delete(TYPE id) {
+    public Optional<T> delete(TYPE id) {
         if (id == null)
             throw new RepositoryException("invalid delete! id is null!");
-        if (!elements.containsKey(id))
-            throw new RepositoryException("no such object in the repository!");
-        elements.remove(id);
+        return Optional.ofNullable(elements.remove(id));
     }
 
-    public void update(T elem) {
+    public Optional<T> update(T elem) {
         if (elem == null)
             throw new RepositoryException("invalid update! item is null!");
-        if (elements.containsKey(elem.getId()))
-            throw new RepositoryException("cannot update non-existing objects");
-        elements.replace(elem.getId(), elem);
+        return Optional.ofNullable(elements.computeIfPresent(elem.getId(), (k, v) -> elem));
     }
 
-    public T find(TYPE id) {
+    public Optional<T> find(TYPE id) {
         if (id == null)
             throw new RepositoryException("invalid find! id is null!");
-        if (!elements.containsKey(id))
-            throw new RepositoryException("no such object in the repository!");
-        return elements.get(id);
+//        if (!elements.containsKey(id))
+//            throw new RepositoryException("no such object in the repository!");
+        return Optional.ofNullable(elements.get(id));
     }
 
     public Iterable<T> findAll() {
