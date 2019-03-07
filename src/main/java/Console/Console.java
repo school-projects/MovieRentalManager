@@ -18,10 +18,10 @@ import java.util.stream.Collectors;
 public class Console {
 
     private MovieService movieService;
-  //  private IValidator<Pair<Command, List<String>>> validator;
+    //  private IValidator<Pair<Command, List<String>>> validator;
     private List<Command> commands;
 
-    public Console(MovieService movieService){
+    public Console(MovieService movieService) {
         this.movieService = movieService;
         //this.validator = new ParameterValidator();
         this.commands = new ArrayList<>();
@@ -30,29 +30,27 @@ public class Console {
         commands.add(new PrintAllMoviesCommand(movieService));
     }
 
-    private void executeCommand(String s) throws UserInputException{
+    private void executeCommand(String s) throws UserInputException {
         try {
             List<String> l = Arrays.asList(s.split(" "));
             Command cmd = commands.stream().filter(p -> p.keyword().equals(l.get(0))).collect(Collectors.toList()).get(0);
 
-            cmd.execute(l.size()==1?  new ArrayList<>() : l.subList(1, l.size()));
-        }
-        catch(RepositoryException e){
+            cmd.execute(l.size() == 1 ? new ArrayList<>() : l.subList(1, l.size()));
+        } catch (RepositoryException e) {
             throw new UserInputException(e.getMessage());
         }
     }
 
-    public void run(){
+    public void run() {
         Scanner sc = new Scanner(System.in);
-        while(true){
+        while (true) {
             System.out.print("Insert your command: ");
             String cmd = sc.nextLine();
             try {
-                if(cmd.equals("exit"))
+                if (cmd.equals("exit"))
                     break;
                 executeCommand(cmd);
-            }
-            catch(UserInputException e){
+            } catch (UserInputException e) {
                 System.out.println(e.getMessage());
             }
         }

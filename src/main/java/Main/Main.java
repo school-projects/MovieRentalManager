@@ -10,8 +10,8 @@ import java.text.ParseException;
 public class Main {
     public static void main(String[] args) {
 
-        MovieService mvsrv = new MovieService();
-        Console c = new Console(mvsrv);
+        MovieService movieService = new MovieService();
+        Console c = new Console(movieService);
         c.run();
 //        mvsrv.addMovie(1,"The Fateful Eight","2016-01-15");
 //        mvsrv.addMovie(2,"Men in Black","1997-07-04");

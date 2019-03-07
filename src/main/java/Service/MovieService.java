@@ -17,38 +17,41 @@ public class MovieService {
     /**
      * MovieService constructor;creates an empty repository
      */
-    public MovieService(){
+    public MovieService() {
         this.repo = new Repository<Integer, Movie>();
         this.validator = new MovieValidator();
     }
 
     /**
      * MovieService constructor;creates a service with a given Movie Repository
+     *
      * @param repo is the given repository
      */
 
-    public MovieService(Repository<Integer,Movie> repo){
+    public MovieService(Repository<Integer, Movie> repo) {
         this.repo = repo;
     }
 
     /**
      * adds a movie to the repository
-     * @param movie_id the id of the movie
-     * @param movie_name the name of the movie
-     * @param movie_release_date the release date of the movie
+     *
+     * @param movieId     the id of the movie
+     * @param movieName   the name of the movie
+     * @param releaseDate the release date of the movie
      */
-    public void addMovie(int movie_id,String movie_name,String movie_release_date){
-        Movie new_movie = new Movie(movie_id,movie_name,movie_release_date);
+    public void addMovie(int movieId, String movieName, String releaseDate) {
+        Movie new_movie = new Movie(movieId, movieName, releaseDate);
         try {
             this.validator.validate(new_movie);
             this.repo.add(new_movie);
-        }catch(ValidatorException e){
+        } catch (ValidatorException e) {
             throw new RuntimeException(e.getMessage());
         }
     }
 
     /**
      * returns all the movies in the repository
+     *
      * @return an iterable containing all the movies
      */
     public Iterable<Movie> getAllMovies() {

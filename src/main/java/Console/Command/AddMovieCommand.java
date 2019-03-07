@@ -4,7 +4,7 @@ import Service.MovieService;
 
 import java.util.List;
 
-public class AddMovieCommand extends Command{
+public class AddMovieCommand extends Command {
 
     private MovieService movieService;
 
@@ -14,7 +14,7 @@ public class AddMovieCommand extends Command{
 
     @Override
     public void execute(List<String> params) {
-        movieService.addMovie(Integer.valueOf(params.get(0)),params.get(1),params.get(2));
+        movieService.addMovie(Integer.valueOf(params.get(0)), params.get(1), params.get(2));
     }
 
     @Override
