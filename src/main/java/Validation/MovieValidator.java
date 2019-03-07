@@ -7,15 +7,19 @@ public class MovieValidator implements IValidator<Movie> {
 
     @Override
     public void validate(Movie mv) throws ValidatorException {
-        String str = "";
-        if (mv.getId() == null)
-            str += "Invalid id! ";
-        if (mv.getName().length() == 0 || mv.getName().equals(""))
-            str += "Invalid movie name! ";
-        if (mv.getDate().length() == 0 || mv.getDate().equals(""))
-            str += "Invalid movie date! ";
+        Integer movieId = mv.getId();
+        String movieName = mv.getName();
+        String movieDate = mv.getDate();
 
-        if (!str.equals(""))
-            throw new ValidatorException(str);
+        String exceptionStr = "";
+        if (movieId == null)
+            exceptionStr += "Invalid id! ";
+        if (movieName.length() == 0 || movieName.trim().length() == 0)
+            exceptionStr += "Invalid movie name! ";
+        if (movieDate.length() == 0)
+            exceptionStr += "Invalid movie date! ";
+
+        if (!exceptionStr.equals(""))
+            throw new ValidatorException(exceptionStr);
     }
 }

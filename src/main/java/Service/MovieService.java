@@ -15,7 +15,7 @@ public class MovieService {
     private IValidator<Movie> validator;
 
     /**
-     * MovieService constructor;creates an empty repository
+     * MovieService constructor; Creates a MovieService instance with an empty repository
      */
     public MovieService() {
         this.repo = new Repository<Integer, Movie>();
@@ -23,9 +23,9 @@ public class MovieService {
     }
 
     /**
-     * MovieService constructor;creates a service with a given Movie Repository
+     * MovieService constructor; Creates a MovieService instance based on a given Movie Repository
      *
-     * @param repo is the given repository
+     * @param repo the given Movie repository
      */
 
     public MovieService(Repository<Integer, Movie> repo) {
@@ -40,10 +40,10 @@ public class MovieService {
      * @param releaseDate the release date of the movie
      */
     public void addMovie(int movieId, String movieName, String releaseDate) {
-        Movie new_movie = new Movie(movieId, movieName, releaseDate);
+        Movie newMovie = new Movie(movieId, movieName, releaseDate);
         try {
-            this.validator.validate(new_movie);
-            this.repo.add(new_movie);
+            this.validator.validate(newMovie);
+            this.repo.add(newMovie);
         } catch (ValidatorException e) {
             throw new RuntimeException(e.getMessage());
         }
