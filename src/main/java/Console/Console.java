@@ -5,6 +5,7 @@ import Console.Command.Command;
 import Console.Command.PrintAllMoviesCommand;
 import Exceptions.RepositoryException;
 import Exceptions.UserInputException;
+import Service.ClientService;
 import Service.MovieService;
 import Validation.IValidator;
 import Exceptions.ValidatorException;
@@ -18,11 +19,13 @@ import java.util.stream.Collectors;
 public class Console {
 
     private MovieService movieService;
+    private ClientService clientService;
     //  private IValidator<Pair<Command, List<String>>> validator;
     private List<Command> commands;
 
-    public Console(MovieService movieService) {
+    public Console(MovieService movieService, ClientService clientService) {
         this.movieService = movieService;
+        this.clientService = clientService;
         //this.validator = new ParameterValidator();
         this.commands = new ArrayList<>();
 
