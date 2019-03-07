@@ -1,6 +1,6 @@
 package Model;
 
-import java.text.ParseException;
+import java.time.LocalDate;
 
 
 /**
@@ -8,7 +8,7 @@ import java.text.ParseException;
  */
 public class Movie extends BaseObject<Integer> {
     private String movieName;
-    private String releaseDate;
+    private LocalDate releaseDate;
 
     /**
      * Constructor for the Movie class
@@ -17,7 +17,7 @@ public class Movie extends BaseObject<Integer> {
      * @param movieName   the movie's name
      * @param releaseDate the movie's release date
      */
-    public Movie(int movieId, String movieName, String releaseDate) {
+    public Movie(int movieId, String movieName, LocalDate releaseDate) {
         super(movieId);
         this.movieName = movieName;
         this.releaseDate = releaseDate;
@@ -47,7 +47,7 @@ public class Movie extends BaseObject<Integer> {
      *
      * @return the movie's initial release date
      */
-    public String getDate() {
+    public LocalDate getDate() {
         return this.releaseDate;
     }
 
@@ -56,7 +56,7 @@ public class Movie extends BaseObject<Integer> {
      *
      * @param releaseDate the movie's new release date
      */
-    public void setDate(String releaseDate) {
+    public void setDate(LocalDate releaseDate) {
         this.releaseDate = releaseDate;
     }
 

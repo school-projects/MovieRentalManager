@@ -6,6 +6,8 @@ import Exceptions.*;
 import Validation.IValidator;
 import Validation.MovieValidator;
 
+import java.time.LocalDate;
+
 /**
  * Service for the Movie class
  */
@@ -37,10 +39,10 @@ public class MovieService {
      *
      * @param movieId     the id of the movie
      * @param movieName   the name of the movie
-     * @param releaseDate the release date of the movie
+     * @param releaseDate the release date of the movie in ISO-8601 date format (e.g. 2011-08-16)
      */
     public void addMovie(int movieId, String movieName, String releaseDate) {
-        Movie newMovie = new Movie(movieId, movieName, releaseDate);
+        Movie newMovie = new Movie(movieId, movieName, LocalDate.parse(releaseDate));
         try {
             this.validator.validate(newMovie);
             this.repo.add(newMovie);
