@@ -3,12 +3,9 @@ package Console;
 import Console.Command.AddMovieCommand;
 import Console.Command.Command;
 import Console.Command.PrintAllMoviesCommand;
-import Exceptions.RepositoryException;
 import Exceptions.UserInputException;
 import Service.ClientService;
 import Service.MovieService;
-import Validation.IValidator;
-import Exceptions.ValidatorException;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -39,7 +36,7 @@ public class Console {
             Command cmd = commands.stream().filter(p -> p.keyword().equals(l.get(0))).collect(Collectors.toList()).get(0);
 
             cmd.execute(l.size() == 1 ? new ArrayList<>() : l.subList(1, l.size()));
-        } catch (RepositoryException e) {
+        } catch (IllegalArgumentException e) {
             throw new UserInputException(e.getMessage());
         }
     }

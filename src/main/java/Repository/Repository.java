@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-import Exceptions.RepositoryException;
+import Validation.IValidator;
 
 /**
  * In-Memory Repository that implements the IRepository<TYPE,T extends BaseObject<TYPE>> interface
@@ -16,34 +16,37 @@ import Exceptions.RepositoryException;
  */
 public class Repository<TYPE, T extends BaseObject<TYPE>> implements IRepository<TYPE, T> {
     private Map<TYPE, T> elements;
+    private IValidator<T> validator;
 
-    public Repository() {
+    public Repository(IValidator<T> val) {
         this.elements = new HashMap<>();
+        this.validator=val;
     }
 
     public Optional<T> add(T elem) {
         if (elem == null)
-            throw new RepositoryException("invalid add! item is null!");
+            throw new IllegalArgumentException("invalid add! item is null!");
+        validator.validate(elem);
         return Optional.ofNullable(elements.putIfAbsent(elem.getId(), elem));
     }
 
     public Optional<T> delete(TYPE id) {
         if (id == null)
-            throw new RepositoryException("invalid delete! id is null!");
+            throw new IllegalArgumentException("invalid delete! id is null!");
         return Optional.ofNullable(elements.remove(id));
     }
 
     public Optional<T> update(T elem) {
         if (elem == null)
-            throw new RepositoryException("invalid update! item is null!");
+            throw new IllegalArgumentException("invalid update! item is null!");
+        validator.validate(elem);
         return Optional.ofNullable(elements.computeIfPresent(elem.getId(), (k, v) -> elem));
     }
 
     public Optional<T> find(TYPE id) {
         if (id == null)
-            throw new RepositoryException("invalid find! id is null!");
-//        if (!elements.containsKey(id))
-//            throw new RepositoryException("no such object in the repository!");
+            throw new IllegalArgumentException("invalid find! id is null!");
+
         return Optional.ofNullable(elements.get(id));
     }
 

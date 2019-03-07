@@ -15,14 +15,13 @@ import java.time.format.DateTimeParseException;
 public class MovieService {
 
     private Repository<Integer, Movie> repo;
-    private IValidator<Movie> validator;
 
     /**
      * MovieService constructor; Creates a MovieService instance with an empty repository
      */
     public MovieService() {
-        this.repo = new Repository<Integer, Movie>();
-        this.validator = new MovieValidator();
+        MovieValidator validator = new MovieValidator();
+        this.repo = new Repository<>(validator);
     }
 
     /**
@@ -45,7 +44,6 @@ public class MovieService {
     public void addMovie(int movieId, String movieName, String releaseDate) {
         try {
             Movie newMovie = new Movie(movieId, movieName, LocalDate.parse(releaseDate));
-            this.validator.validate(newMovie);
             this.repo.add(newMovie);
         } catch (ValidatorException e) {
             throw new RuntimeException(e.getMessage());

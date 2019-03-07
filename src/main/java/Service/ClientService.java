@@ -5,21 +5,21 @@ import Model.Client;
 import Repository.Repository;
 import Validation.ClientValidator;
 import Validation.IValidator;
+import Validation.MovieValidator;
 
 /**
  * Service for the Client class
  */
 public class ClientService {
     private Repository<Integer, Client> repo;
-    private IValidator<Client> validator;
 
     /**
      * Constructor
      * Creates a ClientService instance with an empty repository
      */
     public ClientService() {
-        this.repo = new Repository<Integer, Client>();
-        this.validator = new ClientValidator();
+        ClientValidator validator = new ClientValidator();
+        this.repo = new Repository<>(validator);
     }
 
     /**
@@ -42,7 +42,6 @@ public class ClientService {
     public void addClient(int clientId, String clientName, String clientAddress) {
         Client newClient = new Client(clientId, clientName, clientAddress);
         try {
-            this.validator.validate(newClient);
             this.repo.add(newClient);
         } catch (ValidatorException e) {
             throw new RuntimeException(e.getMessage());

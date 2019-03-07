@@ -1,7 +1,7 @@
 package Repository;
 
 import Model.BaseObject;
-import Exceptions.RepositoryException;
+import Exceptions.ValidatorException;
 
 import java.util.Optional;
 
@@ -16,8 +16,8 @@ public interface IRepository<TYPE, T extends BaseObject<TYPE>> {
      * adds the given T-type element to the repository
      *
      * @param elem must not be null
-     * @throws RepositoryException if the given element is null
-     * @throws RepositoryException if the given element already exists
+     * @throws IllegalArgumentException if the given element is null
+     * @throws ValidatorException if the entity is not valid
      */
     Optional<T> add(T elem);
 
@@ -25,9 +25,8 @@ public interface IRepository<TYPE, T extends BaseObject<TYPE>> {
      * deletes the element with the given id from the repository
      *
      * @param id must not be null
-     * @return an {@code Optional} - null if the entity was saved otherwise (e.g. id already exists) returns the entity.
-     * @throws RepositoryException if the element is null
-     * @throws RepositoryException if the given id does not exist in the repository
+     * @return an {@code Optional} - null if the entity was saved otherwise (e.g. id already exists) returns the entity
+     * @throws IllegalArgumentException if the element is null
      */
     Optional<T> delete(TYPE id);
 
@@ -36,8 +35,8 @@ public interface IRepository<TYPE, T extends BaseObject<TYPE>> {
      *
      * @param elem must not be null
      * @return an {@code Optional} - null if there is no entity with the given id, otherwise the removed entity
-     * @throws RepositoryException if the id is null
-     * @throws RepositoryException if the given id is not in the repository in the first place
+     * @throws IllegalArgumentException if the id is null
+     * @throws ValidatorException if the entity is not valid
      */
     Optional<T> update(T elem);
 
@@ -45,7 +44,7 @@ public interface IRepository<TYPE, T extends BaseObject<TYPE>> {
      * finds an element in the repository by the given id
      *
      * @param id must not be null
-     * @throws RepositoryException if the given id is null
+     * @throws IllegalArgumentException if the given id is null
      * @return an {@code Optional} - null if the entity was updated otherwise (e.g. id does not exist) returns the
      *         entity.
      */
