@@ -17,7 +17,7 @@ public class Movie extends BaseObject<Integer> {
      * @param movieName   the movie's name
      * @param releaseDate the movie's release date
      */
-    public Movie(int movieId, String movieName, LocalDate releaseDate) {
+    public Movie(Integer movieId, String movieName, LocalDate releaseDate) {
         super(movieId);
         this.movieName = movieName;
         this.releaseDate = releaseDate;

@@ -67,6 +67,12 @@ public class Console {
             try {
                 if (cmd.equals("exit"))
                     break;
+
+                if(cmd.equals("help")) {
+                    commands.keySet().forEach(System.out::println);
+                    continue;
+                }
+
                 executeCommand(cmd);
             } catch (UserInputException e) {
                 System.out.println(e.getMessage());

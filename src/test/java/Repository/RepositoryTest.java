@@ -1,6 +1,6 @@
 package Repository;
 
-import Model.BaseObject;
+import Exceptions.ValidatorException;
 import Model.Movie;
 import Validation.IValidator;
 import Validation.MovieValidator;
@@ -15,7 +15,7 @@ import static org.junit.Assert.*;
 public class RepositoryTest {
 
     private Repository<Integer, Movie> repo;
-    private Movie q;
+    private Movie q,l;
 
     @Before
     public void setUp() {
@@ -35,10 +35,25 @@ public class RepositoryTest {
         assertEquals(5,repo.getElements().size());
     }
 
+    @Test(expected=IllegalArgumentException.class)
+    public void addExc1(){
+        repo.add(l);
+    }
+
+    @Test(expected= ValidatorException.class)
+    public void addExc2(){
+        repo.add(new Movie(null,"",LocalDate.parse("1899-01-01")));
+    }
+
     @Test
     public void delete() {
         repo.delete(4);
         assertEquals(3,repo.getElements().size());
+    }
+
+    @Test(expected=IllegalArgumentException.class)
+    public void deleteExc(){
+        repo.delete(null);
     }
 
     @Test
@@ -49,10 +64,25 @@ public class RepositoryTest {
         assertEquals("a",repo.find(4).get().getName());
     }
 
+    @Test(expected= ValidatorException.class)
+    public void updateExc2(){
+        repo.update(new Movie(null,"",LocalDate.parse("1899-01-01")));
+    }
+
+    @Test(expected=IllegalArgumentException.class)
+    public void updateExc1(){
+        repo.update(l);
+    }
+
     @Test
     public void find() {
         assertTrue(repo.find(4).isPresent());
         assertEquals("Cool Movie Name4",repo.find(4).get().getName());
+    }
+
+    @Test(expected=IllegalArgumentException.class)
+    public void findExc(){
+        repo.find(null);
     }
 
     @Test
