@@ -41,11 +41,9 @@ public class ClientService {
      */
     public void addClient(int clientId, String clientName, String clientAddress) {
         Client newClient = new Client(clientId, clientName, clientAddress);
-        try {
-            this.repo.add(newClient);
-        } catch (ValidatorException e) {
-            throw new RuntimeException(e.getMessage());
-        }
+
+        this.repo.add(newClient);
+
     }
 
 

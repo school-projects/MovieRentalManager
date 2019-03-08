@@ -1,46 +1,64 @@
 package Console;
 
-import Console.Command.AddMovieCommand;
-import Console.Command.Command;
-import Console.Command.PrintAllMoviesCommand;
+import Console.Command.*;
 import Exceptions.UserInputException;
+import Exceptions.ValidatorException;
 import Service.ClientService;
 import Service.MovieService;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
-import java.util.stream.Collectors;
+import java.util.*;
 
+/**
+ * The main class for the console-based UI
+ */
 public class Console {
 
-    private MovieService movieService;
-    private ClientService clientService;
-    //  private IValidator<Pair<Command, List<String>>> validator;
-    private List<Command> commands;
+    private Map<String,Command> commands;
 
     public Console(MovieService movieService, ClientService clientService) {
-        this.movieService = movieService;
-        this.clientService = clientService;
-        //this.validator = new ParameterValidator();
-        this.commands = new ArrayList<>();
+        this.commands = new HashMap<>();
 
-        commands.add(new AddMovieCommand(movieService));
-        commands.add(new PrintAllMoviesCommand(movieService));
+        commands.put("addmovie", new AddMovieCommand(movieService));
+        commands.put("printallmovies", new PrintAllMoviesCommand(movieService));
+        commands.put("addclient", new AddClientCommand(clientService));
+        commands.put("printallclients",new PrintAllClientsCommand(clientService));
+
     }
 
+    /**
+     * Takes the user input and executes the command corresponding to it
+     * @param s the user input
+     * @throws UserInputException if the user issues an invalid command(wrong keyword, wrong parameters)
+     */
     private void executeCommand(String s) throws UserInputException {
-        try {
-            List<String> l = Arrays.asList(s.split(" "));
-            Command cmd = commands.stream().filter(p -> p.keyword().equals(l.get(0))).collect(Collectors.toList()).get(0);
 
-            cmd.execute(l.size() == 1 ? new ArrayList<>() : l.subList(1, l.size()));
-        } catch (IllegalArgumentException e) {
+        Optional<Command> cmd;
+        List<String> l = Arrays.asList(s.split(" ",2));
+
+        try {
+            cmd = Optional.of(commands.get(l.get(0)));
+        } catch (NullPointerException e) {
+            throw new UserInputException("Command not recognised!");
+        }
+
+        List<String> params = l.size() == 1 ? new ArrayList<>() : Arrays.asList(l.get(1).split(","));
+
+        if(params.size() != cmd.get().paramNr())
+            throw new UserInputException("Invalid number of parameters!");
+
+        try{
+            cmd.get().execute(params);
+        }
+        catch (ValidatorException e){
             throw new UserInputException(e.getMessage());
         }
+
+
     }
 
+    /**
+     * Starts the console-based UI
+     */
     public void run() {
         Scanner sc = new Scanner(System.in);
         while (true) {

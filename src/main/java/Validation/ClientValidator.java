@@ -3,8 +3,18 @@ package Validation;
 import Exceptions.ValidatorException;
 import Model.Client;
 
+/**
+ * Validator for the client class
+ */
 public class ClientValidator implements IValidator<Client> {
 
+    /**
+     * Validates a given client.
+     * @param client the client to be validated
+     * @throws ValidatorException if the id is null
+     *                            if the name is empty
+     *                            if the address is empty
+     */
     @Override
     public void validate(Client client) throws ValidatorException {
         Integer clientId = client.getId();

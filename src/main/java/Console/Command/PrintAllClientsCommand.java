@@ -1,18 +1,19 @@
 package Console.Command;
 
-import Service.MovieService;
+import Service.ClientService;
 
 import java.util.List;
 
 /**
- * Command for printing all movies
+ * Command for printing all clients
  */
-public class PrintAllMoviesCommand extends Command {
 
-    private MovieService movieService;
+public class PrintAllClientsCommand extends Command {
 
-    public PrintAllMoviesCommand(MovieService movieService) {
-        this.movieService = movieService;
+    private ClientService clientService;
+
+    public PrintAllClientsCommand(ClientService clientService) {
+        this.clientService = clientService;
     }
 
     /**
@@ -21,7 +22,7 @@ public class PrintAllMoviesCommand extends Command {
      */
     @Override
     public void execute(List<String> params) {
-        movieService.getAllMovies().forEach(System.out::println);
+        clientService.getAllClients().forEach(System.out::println);
     }
 
     /**

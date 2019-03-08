@@ -5,8 +5,18 @@ import Exceptions.ValidatorException;
 
 import java.time.LocalDate;
 
+/**
+ * Validator for the movie class
+ */
 public class MovieValidator implements IValidator<Movie> {
 
+    /**
+     * Validates a given movie
+     * @param mv movie to be validated
+     * @throws ValidatorException if the id is null
+     *                            if the name is empty
+     *                            if the date is not between 1900 and 2100
+     */
     @Override
     public void validate(Movie mv) throws ValidatorException {
         Integer movieId = mv.getId();

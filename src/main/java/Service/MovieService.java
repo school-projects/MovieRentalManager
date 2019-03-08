@@ -41,15 +41,11 @@ public class MovieService {
      * @param movieName   the name of the movie
      * @param releaseDate the release date of the movie in ISO-8601 date format (e.g. 2011-08-16)
      */
-    public void addMovie(int movieId, String movieName, String releaseDate) {
-        try {
-            Movie newMovie = new Movie(movieId, movieName, LocalDate.parse(releaseDate));
-            this.repo.add(newMovie);
-        } catch (ValidatorException e) {
-            throw new RuntimeException(e.getMessage());
-        } catch (DateTimeParseException e) {
-            throw new RuntimeException("Release date is not properly formatted!");
-        }
+    public void addMovie(int movieId, String movieName, LocalDate releaseDate) {
+
+        Movie newMovie = new Movie(movieId, movieName, releaseDate);
+        this.repo.add(newMovie);
+
     }
 
     /**

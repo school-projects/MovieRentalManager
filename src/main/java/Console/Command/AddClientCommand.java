@@ -1,19 +1,19 @@
 package Console.Command;
 
 import Console.InputConverter;
-import Service.MovieService;
+import Service.ClientService;
 
 import java.util.List;
 
 /**
- * Command for adding a movie
+ * Command for adding a client
  */
-public class AddMovieCommand extends Command {
+public class AddClientCommand extends Command {
 
-    private MovieService movieService;
+    private ClientService clientService;
 
-    public AddMovieCommand(MovieService movieService) {
-        this.movieService = movieService;
+    public AddClientCommand(ClientService clientService) {
+        this.clientService = clientService;
     }
 
     /**
@@ -22,7 +22,7 @@ public class AddMovieCommand extends Command {
      */
     @Override
     public void execute(List<String> params) {
-        movieService.addMovie(InputConverter.readInt(params.get(0)), params.get(1), InputConverter.readDate(params.get(2)));
+        clientService.addClient(InputConverter.readInt(params.get(0)), params.get(1), params.get(2));
     }
 
     /**
@@ -33,6 +33,4 @@ public class AddMovieCommand extends Command {
     public Integer paramNr() {
         return 3;
     }
-
-
 }
