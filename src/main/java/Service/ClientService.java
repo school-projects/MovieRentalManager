@@ -7,6 +7,10 @@ import Validation.ClientValidator;
 import Validation.IValidator;
 import Validation.MovieValidator;
 
+import java.util.Comparator;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
+
 /**
  * Service for the Client class
  */
@@ -54,5 +58,9 @@ public class ClientService {
      */
     public Iterable<Client> getAllClients() {
         return repo.findAll();
+    }
+
+    public Iterable<Client> sortAlfa(){
+        return StreamSupport.stream(repo.findAll().spliterator(),false).sorted(Comparator.comparing(Client::getName)).collect(Collectors.toList());
     }
 }

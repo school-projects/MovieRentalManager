@@ -23,6 +23,7 @@ public class Console {
         commands.put("printallmovies", new PrintAllMoviesCommand(movieService));
         commands.put("addclient", new AddClientCommand(clientService));
         commands.put("printallclients",new PrintAllClientsCommand(clientService));
+        commands.put("sortclients",new SortClientCommand(clientService));
 
     }
 

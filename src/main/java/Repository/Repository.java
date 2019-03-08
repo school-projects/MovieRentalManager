@@ -54,7 +54,7 @@ public class Repository<TYPE, T extends BaseObject<TYPE>> implements IRepository
         return elements.values();
     }
 
-    public Map<TYPE,T> getElements(){
+    Map<TYPE,T> getElements(){
         return this.elements;
     }
 }
