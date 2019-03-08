@@ -16,6 +16,7 @@ public interface IRepository<TYPE, T extends BaseObject<TYPE>> {
      * adds the given T-type element to the repository
      *
      * @param elem must not be null
+     * @return an Optional with null if the object is added,or the object if the adding fails
      * @throws IllegalArgumentException if the given element is null
      * @throws ValidatorException if the entity is not valid
      */
