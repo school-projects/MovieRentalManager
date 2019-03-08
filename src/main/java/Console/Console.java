@@ -7,6 +7,7 @@ import Service.ClientService;
 import Service.MovieService;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * The main class for the console-based UI
@@ -42,6 +43,7 @@ public class Console {
         }
 
         List<String> params = l.size() == 1 ? new ArrayList<>() : Arrays.asList(l.get(1).split(","));
+        params = params.stream().map(String::trim).collect(Collectors.toList());
 
         if(params.size() != cmd.get().paramNr())
             throw new UserInputException("Invalid number of parameters!");
