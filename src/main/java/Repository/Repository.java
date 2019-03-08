@@ -53,4 +53,8 @@ public class Repository<TYPE, T extends BaseObject<TYPE>> implements IRepository
     public Iterable<T> findAll() {
         return elements.values();
     }
+
+    public Map<TYPE,T> getElements(){
+        return this.elements;
+    }
 }
