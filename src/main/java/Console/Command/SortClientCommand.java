@@ -13,7 +13,7 @@ public class SortClientCommand extends Command {
 
     @Override
     public void execute(List<String> params){
-        clientService.sortAlfa().forEach(System.out::println);
+        clientService.sortAlpha().forEach(System.out::println);
     }
 
     @Override

@@ -12,48 +12,24 @@ import java.time.format.DateTimeParseException;
 /**
  * Service for the Movie class
  */
-public class MovieService {
-
-    private Repository<Integer, Movie> repo;
-
+public class MovieService extends Service<Integer, Movie> {
     /**
-     * MovieService constructor; Creates a MovieService instance with an empty repository
+     * Creates a MovieService instance with an empty repository
      */
     public MovieService() {
-        MovieValidator validator = new MovieValidator();
-        this.repo = new Repository<>(validator);
+        super(new MovieValidator());
     }
 
-    /**
-     * MovieService constructor; Creates a MovieService instance based on a given Movie Repository
-     *
-     * @param repo the given Movie repository
-     */
-
-    public MovieService(Repository<Integer, Movie> repo) {
-        this.repo = repo;
-    }
 
     /**
-     * adds a movie to the repository
+     * Adds a movie to the repository
      *
      * @param movieId     the id of the movie
      * @param movieName   the name of the movie
      * @param releaseDate the release date of the movie in ISO-8601 date format (e.g. 2011-08-16)
      */
     public void addMovie(int movieId, String movieName, LocalDate releaseDate) {
-
         Movie newMovie = new Movie(movieId, movieName, releaseDate);
-        this.repo.add(newMovie);
-
-    }
-
-    /**
-     * returns all the movies in the repository
-     *
-     * @return an iterable containing all the movies
-     */
-    public Iterable<Movie> getAllMovies() {
-        return repo.findAll();
+        super.add(newMovie);
     }
 }

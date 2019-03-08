@@ -21,7 +21,7 @@ public class PrintAllMoviesCommand extends Command {
      */
     @Override
     public void execute(List<String> params) {
-        movieService.getAllMovies().forEach(System.out::println);
+        movieService.getAll().forEach(System.out::println);
     }
 
     /**

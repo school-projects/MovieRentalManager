@@ -22,7 +22,7 @@ public class PrintAllClientsCommand extends Command {
      */
     @Override
     public void execute(List<String> params) {
-        clientService.getAllClients().forEach(System.out::println);
+        clientService.getAll().forEach(System.out::println);
     }
 
     /**

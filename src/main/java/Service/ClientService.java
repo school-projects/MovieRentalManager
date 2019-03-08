@@ -14,26 +14,12 @@ import java.util.stream.StreamSupport;
 /**
  * Service for the Client class
  */
-public class ClientService {
-    private Repository<Integer, Client> repo;
-
+public class ClientService extends Service<Integer, Client> {
     /**
-     * Constructor
      * Creates a ClientService instance with an empty repository
      */
     public ClientService() {
-        ClientValidator validator = new ClientValidator();
-        this.repo = new Repository<>(validator);
-    }
-
-    /**
-     * Constructor
-     * Creates a ClientService instance based on a given Client Repository
-     *
-     * @param repo the given repository
-     */
-    public ClientService(Repository<Integer, Client> repo) {
-        this.repo = repo;
+        super(new ClientValidator());
     }
 
     /**
@@ -45,22 +31,10 @@ public class ClientService {
      */
     public void addClient(int clientId, String clientName, String clientAddress) {
         Client newClient = new Client(clientId, clientName, clientAddress);
-
-        this.repo.add(newClient);
-
+        super.add(newClient);
     }
 
-
-    /**
-     * Returns all clients in the repository
-     *
-     * @return an iterable containing the clients
-     */
-    public Iterable<Client> getAllClients() {
-        return repo.findAll();
-    }
-
-    public Iterable<Client> sortAlfa(){
+    public Iterable<Client> sortAlpha(){
         return StreamSupport.stream(repo.findAll().spliterator(),false).sorted(Comparator.comparing(Client::getName)).collect(Collectors.toList());
     }
 }
