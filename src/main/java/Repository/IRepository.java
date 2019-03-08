@@ -8,8 +8,8 @@ import java.util.Optional;
 /**
  * Generic Repository Interface for storing T-type objects, with TYPE-type id
  *
- * @param <TYPE>
- * @param <T>
+ * @param <TYPE> the id for the object
+ * @param <T> the object it stores
  */
 public interface IRepository<TYPE, T extends BaseObject<TYPE>> {
     /**
@@ -54,7 +54,7 @@ public interface IRepository<TYPE, T extends BaseObject<TYPE>> {
     /**
      * finds all the elements in the repository
      *
-     * @return an Iterable<T> object
+     * @return an Iterable object
      */
     Iterable<T> findAll();
 }

@@ -9,7 +9,7 @@ import java.util.Optional;
 import Validation.IValidator;
 
 /**
- * In-Memory Repository that implements the IRepository<TYPE,T extends BaseObject<TYPE>> interface
+ * In-Memory Repository that implements the IRepository interface
  *
  * @param <TYPE> the TYPE of the id
  * @param <T>    the type of the object that uses a TYPE-type id
