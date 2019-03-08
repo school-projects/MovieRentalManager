@@ -34,6 +34,10 @@ public class ClientService extends Service<Integer, Client> {
         super.add(newClient);
     }
 
+    /**
+     * Sorts all the clients after their name
+     * @return an Iterable containing the sorted clients
+     */
     public Iterable<Client> sortAlpha(){
         return StreamSupport.stream(repo.findAll().spliterator(),false).sorted(Comparator.comparing(Client::getName)).collect(Collectors.toList());
     }
