@@ -24,7 +24,8 @@ public class Console {
         commands.put("addclient", new AddClientCommand(clientService));
         commands.put("printallclients",new PrintAllClientsCommand(clientService));
         commands.put("sortclients",new SortClientCommand(clientService));
-
+        commands.put("deletemovie",new DeleteObjectCommand(movieService));
+        commands.put("deleteclient",new DeleteObjectCommand(clientService));
     }
 
     /**
@@ -77,7 +78,7 @@ public class Console {
                 }
 
                 executeCommand(cmd);
-            } catch (UserInputException e) {
+            } catch (UserInputException | IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }
         }

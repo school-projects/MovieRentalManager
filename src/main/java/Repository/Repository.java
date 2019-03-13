@@ -33,6 +33,8 @@ public class Repository<TYPE, T extends BaseObject<TYPE>> implements IRepository
     public Optional<T> delete(TYPE id) {
         if (id == null)
             throw new IllegalArgumentException("invalid delete! id is null!");
+        if(!elements.containsKey(id))
+            throw new IllegalArgumentException("invalid delete! given id does not exist!");
         return Optional.ofNullable(elements.remove(id));
     }
 
