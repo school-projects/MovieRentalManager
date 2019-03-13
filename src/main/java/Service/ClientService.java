@@ -41,4 +41,13 @@ public class ClientService extends Service<Integer, Client> {
     public Iterable<Client> sortAlpha(){
         return StreamSupport.stream(repo.findAll().spliterator(),false).sorted(Comparator.comparing(Client::getName)).collect(Collectors.toList());
     }
+
+    /**
+     * Filters the list for all clients with a name that contains the given string
+     * @param string the search string
+     * @return an Iterable containing the filtered clients
+     */
+    public Iterable<Client> filterByName(String string){
+        return StreamSupport.stream(repo.findAll().spliterator(), false).filter(s->s.getName().matches("(.)*"+string+"(.)*")).collect(Collectors.toList());
+    }
 }
