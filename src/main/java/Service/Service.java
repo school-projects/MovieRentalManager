@@ -11,7 +11,7 @@ import Validation.IValidator;
  * @param <T> object type
  */
 public abstract class Service<K, T extends BaseObject<K>> {
-    protected Repository<K, T> repo;
+    Repository<K, T> repo;
 
     /**
      * Creates a Service instance with an empty repository
@@ -19,7 +19,7 @@ public abstract class Service<K, T extends BaseObject<K>> {
      * @param validator validator used in repository
      */
     public Service(IValidator<T> validator) {
-        this.repo = new Repository<K, T>(validator);
+        this.repo = new Repository<>(validator);
     }
 
     /**
@@ -36,9 +36,16 @@ public abstract class Service<K, T extends BaseObject<K>> {
      *
      * @param obj object of type T to be added
      */
-    public void add(T obj) {
+    void add(T obj) {
         this.repo.add(obj);
     }
+
+    /**
+     * Deletes an object from the underlying repository
+     *
+     * @param id the key from which the object will be deleted
+     */
+    public void delete(K id){this.repo.delete(id);}
 
     /**
      * Gets all repository objects
