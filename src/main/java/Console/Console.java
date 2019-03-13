@@ -78,7 +78,7 @@ public class Console {
                 }
 
                 executeCommand(cmd);
-            } catch (UserInputException e) {
+            } catch (UserInputException | IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }
         }
