@@ -27,6 +27,7 @@ public class Console {
         commands.put("deletemovie",new DeleteObjectCommand(movieService));
         commands.put("deleteclient",new DeleteObjectCommand(clientService));
         commands.put("filterclientname", new FilterClientCommand(clientService));
+        commands.put("filtermovieyear", new FilterMovieCommand(movieService));
     }
 
     /**

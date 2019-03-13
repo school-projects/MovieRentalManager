@@ -8,6 +8,8 @@ import Validation.MovieValidator;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 /**
  * Service for the Movie class
@@ -31,5 +33,14 @@ public class MovieService extends Service<Integer, Movie> {
     public void addMovie(int movieId, String movieName, LocalDate releaseDate) {
         Movie newMovie = new Movie(movieId, movieName, releaseDate);
         super.add(newMovie);
+    }
+
+    /**
+     * Filters the repository for movies that were released in a given year
+     * @param year the release year
+     * @return an Iterable of movies with the appropiate release date
+     */
+    public Iterable<Movie> filterByYear(Integer year){
+        return StreamSupport.stream(repo.findAll().spliterator(), false).filter(m->m.getDate().getYear()==year).collect(Collectors.toList());
     }
 }
