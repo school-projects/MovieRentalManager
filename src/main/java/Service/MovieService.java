@@ -23,6 +23,9 @@ public class MovieService extends Service<Integer, Movie> {
         super(new MovieValidator());
     }
 
+    public MovieService(Repository<Integer,Movie> repo){
+        super(repo);
+    }
 
     /**
      * Adds a movie to the repository

@@ -22,6 +22,10 @@ public class ClientService extends Service<Integer, Client> {
         super(new ClientValidator());
     }
 
+    public ClientService(Repository<Integer,Client> repo){
+        super(repo);
+    }
+
     /**
      * Adds a Client to the repository
      *

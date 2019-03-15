@@ -15,8 +15,10 @@ import Validation.IValidator;
  * @param <T>    the type of the object that uses a TYPE-type id
  */
 public class Repository<TYPE, T extends BaseObject<TYPE>> implements IRepository<TYPE, T> {
-    private Map<TYPE, T> elements;
-    private IValidator<T> validator;
+    Map<TYPE, T> elements;
+    IValidator<T> validator;
+
+    //public Repository(){}
 
     public Repository(IValidator<T> val) {
         this.elements = new HashMap<>();
