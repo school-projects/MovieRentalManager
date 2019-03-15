@@ -12,10 +12,10 @@ import java.util.stream.StreamSupport;
 public class FileRepository<TYPE,T extends BaseObject<TYPE>> extends Repository<TYPE,T>{
     private FileConverter<T> fileConverter;
     private String fileName;
-    public FileRepository(IValidator<T> validator, FileConverter<T> fc) throws IOException {
+    public FileRepository(IValidator<T> validator, FileConverter<T> fc,String fileName) throws IOException {
         super(validator);
         this.fileConverter=fc;
-        this.fileName="C:\\Users\\teodo\\Desktop\\Lab2-4\\src\\main\\java\\Repository\\movies.txt";
+        this.fileName=fileName;
         readFromFile();
     }
     public void readFromFile() throws IOException {
@@ -32,11 +32,17 @@ public class FileRepository<TYPE,T extends BaseObject<TYPE>> extends Repository<
         BufferedWriter writer = new BufferedWriter(new FileWriter(fileName,false));
         this.elements.values().stream().forEach(p-> {
             try {
-                writer.write(fileConverter.toString((T) p));
+                writer.write(fileConverter.toString((T) p)+"\n");
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
         });
+        try {
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     @Override
     public Optional<T> add(T elem){
