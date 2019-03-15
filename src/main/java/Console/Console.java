@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
  */
 public class Console {
 
-    private Map<String,Command> commands;
+    private Map<String, Command> commands;
 
     public Console(MovieService movieService, ClientService clientService) {
         this.commands = new HashMap<>();
@@ -22,23 +22,26 @@ public class Console {
         commands.put("addmovie", new AddMovieCommand(movieService));
         commands.put("printallmovies", new PrintAllMoviesCommand(movieService));
         commands.put("addclient", new AddClientCommand(clientService));
-        commands.put("printallclients",new PrintAllClientsCommand(clientService));
-        commands.put("sortclients",new SortClientCommand(clientService));
-        commands.put("deletemovie",new DeleteObjectCommand(movieService));
-        commands.put("deleteclient",new DeleteObjectCommand(clientService));
+        commands.put("printallclients", new PrintAllClientsCommand(clientService));
+        commands.put("sortclients", new SortClientCommand(clientService));
+        commands.put("deletemovie", new DeleteObjectCommand(movieService));
+        commands.put("deleteclient", new DeleteObjectCommand(clientService));
+        commands.put("updatemovie", new UpdateMovieCommand(movieService));
+        commands.put("updateclient", new UpdateClientCommand(clientService));
         commands.put("filterclientname", new FilterClientCommand(clientService));
         commands.put("filtermovieyear", new FilterMovieCommand(movieService));
     }
 
     /**
      * Takes the user input and executes the command corresponding to it
+     *
      * @param s the user input
      * @throws UserInputException if the user issues an invalid command(wrong keyword, wrong parameters)
      */
     private void executeCommand(String s) throws UserInputException {
 
         Optional<Command> cmd;
-        List<String> l = Arrays.asList(s.split(" ",2));
+        List<String> l = Arrays.asList(s.split(" ", 2));
 
         try {
             cmd = Optional.of(commands.get(l.get(0)));
@@ -49,13 +52,12 @@ public class Console {
         List<String> params = l.size() == 1 ? new ArrayList<>() : Arrays.asList(l.get(1).split(","));
         params = params.stream().map(String::trim).collect(Collectors.toList());
 
-        if(params.size() != cmd.get().paramNr())
+        if (params.size() != cmd.get().paramNr())
             throw new UserInputException("Invalid number of parameters!");
 
-        try{
+        try {
             cmd.get().execute(params);
-        }
-        catch (ValidatorException e){
+        } catch (ValidatorException e) {
             throw new UserInputException(e.getMessage());
         }
 
@@ -74,7 +76,7 @@ public class Console {
                 if (cmd.equals("exit"))
                     break;
 
-                if(cmd.equals("help")) {
+                if (cmd.equals("help")) {
                     commands.keySet().forEach(System.out::println);
                     continue;
                 }

@@ -45,7 +45,18 @@ public abstract class Service<K, T extends BaseObject<K>> {
      *
      * @param id the key from which the object will be deleted
      */
-    public void delete(K id){this.repo.delete(id);}
+    public void delete(K id) {
+        this.repo.delete(id);
+    }
+
+    /**
+     * Replaces an object in the underlying repository with another based on its id
+     *
+     * @param obj the object that will replace the object present in the repository
+     */
+    public void update(T obj) {
+        this.repo.update(obj);
+    }
 
     /**
      * Gets all repository objects

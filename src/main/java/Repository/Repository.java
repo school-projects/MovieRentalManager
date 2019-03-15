@@ -20,7 +20,7 @@ public class Repository<TYPE, T extends BaseObject<TYPE>> implements IRepository
 
     public Repository(IValidator<T> val) {
         this.elements = new HashMap<>();
-        this.validator=val;
+        this.validator = val;
     }
 
     public Optional<T> add(T elem) {
@@ -33,7 +33,7 @@ public class Repository<TYPE, T extends BaseObject<TYPE>> implements IRepository
     public Optional<T> delete(TYPE id) {
         if (id == null)
             throw new IllegalArgumentException("invalid delete! id is null!");
-        if(!elements.containsKey(id))
+        if (!elements.containsKey(id))
             throw new IllegalArgumentException("invalid delete! given id does not exist!");
         return Optional.ofNullable(elements.remove(id));
     }
@@ -42,6 +42,8 @@ public class Repository<TYPE, T extends BaseObject<TYPE>> implements IRepository
         if (elem == null)
             throw new IllegalArgumentException("invalid update! item is null!");
         validator.validate(elem);
+        if (!elements.containsKey(elem.getId()))
+            throw new IllegalArgumentException("invalid update! given id does not exist!");
         return Optional.ofNullable(elements.computeIfPresent(elem.getId(), (k, v) -> elem));
     }
 
@@ -56,7 +58,7 @@ public class Repository<TYPE, T extends BaseObject<TYPE>> implements IRepository
         return elements.values();
     }
 
-    Map<TYPE,T> getElements(){
+    Map<TYPE, T> getElements() {
         return this.elements;
     }
 }
