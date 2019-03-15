@@ -30,6 +30,7 @@ public class Console {
         commands.put("updateclient", new UpdateClientCommand(clientService));
         commands.put("filterclientname", new FilterClientCommand(clientService));
         commands.put("filtermovieyear", new FilterMovieCommand(movieService));
+        commands.put("sortmovies",new SortMovieCommand(movieService));
     }
 
     /**
