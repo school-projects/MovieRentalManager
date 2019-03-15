@@ -4,6 +4,8 @@ import Model.BaseObject;
 import Repository.Repository;
 import Validation.IValidator;
 
+import java.util.Optional;
+
 /**
  * Abstract Service class
  *
@@ -54,8 +56,8 @@ public abstract class Service<K, T extends BaseObject<K>> {
      *
      * @param obj the object that will replace the object present in the repository
      */
-    public void update(T obj) {
-        this.repo.update(obj);
+    public Optional<T> update(T obj) {
+        return this.repo.update(obj);
     }
 
     /**

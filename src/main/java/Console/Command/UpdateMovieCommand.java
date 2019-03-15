@@ -24,7 +24,7 @@ public class UpdateMovieCommand extends Command {
     @Override
     public void execute(List<String> params) {
         Movie movie = new Movie(InputConverter.readInt(params.get(0)), params.get(1), InputConverter.readDate(params.get(2)));
-        movieService.update(movie);
+        movieService.update(movie).orElseThrow(() -> new IllegalArgumentException("invalid update! movie with given id does not exist!"));
     }
 
     /**

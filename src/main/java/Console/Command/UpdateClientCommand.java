@@ -24,7 +24,7 @@ public class UpdateClientCommand extends Command {
     @Override
     public void execute(List<String> params) {
         Client client = new Client(InputConverter.readInt(params.get(0)), params.get(1), params.get(2));
-        clientService.update(client);
+        clientService.update(client).orElseThrow(() -> new IllegalArgumentException("invalid update! client with given id does not exist!"));
     }
 
     /**

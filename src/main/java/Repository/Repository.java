@@ -42,8 +42,6 @@ public class Repository<TYPE, T extends BaseObject<TYPE>> implements IRepository
         if (elem == null)
             throw new IllegalArgumentException("invalid update! item is null!");
         validator.validate(elem);
-        if (!elements.containsKey(elem.getId()))
-            throw new IllegalArgumentException("invalid update! given id does not exist!");
         return Optional.ofNullable(elements.computeIfPresent(elem.getId(), (k, v) -> elem));
     }
 
