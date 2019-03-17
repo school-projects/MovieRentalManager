@@ -5,23 +5,28 @@ import Model.Movie;
 import Repository.FileConverter.ClientFileConverter;
 import Repository.FileConverter.MovieFileConverter;
 import Repository.Repository;
+import Repository.XMLConverter.XMLClientConverter;
+import Repository.XMLConverter.XMLMovieConverter;
 import Service.ClientService;
 import Service.MovieService;
 import Console.Console;
 import Repository.FileRepository;
 import Validation.ClientValidator;
 import Validation.MovieValidator;
+import Repository.XmlRepository;
+import org.xml.sax.SAXException;
 
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.text.ParseException;
 import java.time.LocalDate;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, ParserConfigurationException, SAXException {
 
 
-        MovieService movieService = new MovieService(new FileRepository<Integer,Movie>(new MovieValidator(),new MovieFileConverter(),"C:\\Users\\teodo\\Desktop\\Lab2-4\\src\\main\\java\\Files\\movies.txt"));
-        ClientService clientService = new ClientService(new FileRepository<Integer, Client>(new ClientValidator(),new ClientFileConverter(),"C:\\Users\\teodo\\Desktop\\Lab2-4\\src\\main\\java\\Files\\clients.txt"));
+        MovieService movieService = new MovieService(new XmlRepository<Integer, Movie>(new MovieValidator(),new XMLMovieConverter(),"C:\\Users\\teodo\\Desktop\\Lab2-4\\src\\main\\java\\Files\\xmlmovies.xml"));
+        ClientService clientService = new ClientService(new XmlRepository<Integer, Client>(new ClientValidator(),new XMLClientConverter(),"C:\\Users\\teodo\\Desktop\\Lab2-4\\src\\main\\java\\Files\\xmlclients.xml"));
         Console c = new Console(movieService, clientService);
 //        movieService.addMovie(1,"The Fateful Eight", LocalDate.parse("2016-01-15"));
 //        movieService.addMovie(2,"Men in Black",LocalDate.parse("1997-07-04"));

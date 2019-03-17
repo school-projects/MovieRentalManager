@@ -7,6 +7,10 @@ public class Client extends BaseObject<Integer> {
     private String clientName;
     private String clientAddress;
 
+    public Client(int id){
+        super(id);
+    }
+
     /**
      * Constructor for the Client class
      *

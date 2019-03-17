@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?><objects>
+<movie id="1">
+<name>a</name>
+<releaseDate>2000-01-02</releaseDate>
+</movie>
+<movie id="2">
+<name>b</name>
+<releaseDate>2001-01-01</releaseDate>
+</movie>
+</objects>

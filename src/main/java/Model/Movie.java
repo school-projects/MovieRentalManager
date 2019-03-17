@@ -10,6 +10,9 @@ public class Movie extends BaseObject<Integer> {
     private String movieName;
     private LocalDate releaseDate;
 
+
+    public Movie(int id){super(id);}
+
     /**
      * Constructor for the Movie class
      *

@@ -32,7 +32,7 @@ public class FileRepository<TYPE,T extends BaseObject<TYPE>> extends Repository<
         BufferedWriter writer = new BufferedWriter(new FileWriter(fileName,false));
         this.elements.values().stream().forEach(p-> {
             try {
-                writer.write(fileConverter.toString((T) p)+"\n");
+                writer.write(fileConverter.toString(p)+"\n");
             } catch (IOException e) {
                 e.printStackTrace();
             }
