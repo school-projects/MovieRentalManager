@@ -13,26 +13,32 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class RentalService extends Service<Integer, Rental> {
+    private ClientService clientService;
+    private MovieService movieService;
+
     public RentalService() {
         super(new RentalValidator());
     }
 
-    public RentalService(Repository<Integer, Rental> repo) {
+    public RentalService(Repository<Integer, Rental> repo, ClientService clientService, MovieService movieService) {
         super(repo);
+        this.clientService = clientService;
+        this.movieService = movieService;
     }
 
     public void addRental(int rentalId, Client client, Movie movie, LocalDate rentalStart, LocalDate rentalEnd) {
-        Rental newRental = new Rental(rentalId, client, movie, rentalStart, rentalEnd);
+        Rental newRental = new Rental(rentalId, client.getId(), movie.getId(), rentalStart, rentalEnd);
         super.add(newRental);
     }
 
     public Map.Entry<Client, Integer> mostRentalsClient() {
         Map<Client, Integer> rentals = new HashMap<>();
         this.repo.findAll().forEach(r -> {
-            if (rentals.containsKey(r.getClient()))
-                rentals.put(r.getClient(), rentals.get(r.getClient()) + 1);
+            Client client = clientService.get(r.getClientId()).orElseThrow(() -> new RuntimeException("Client no longer exists!"));
+            if (rentals.containsKey(client))
+                rentals.put(client, rentals.get(client) + 1);
             else
-                rentals.put(r.getClient(), 1);
+                rentals.put(client, 1);
         });
 
         return Collections.max(rentals.entrySet(), Comparator.comparing(Map.Entry::getValue));
@@ -41,10 +47,11 @@ public class RentalService extends Service<Integer, Rental> {
     public Map.Entry<Movie, Integer> mostRentalsMovie() {
         Map<Movie, Integer> rentals = new HashMap<>();
         this.repo.findAll().forEach(r -> {
-            if (rentals.containsKey(r.getMovie()))
-                rentals.put(r.getMovie(), rentals.get(r.getMovie()) + 1);
+            Movie movie = movieService.get(r.getMovieId()).orElseThrow(() -> new RuntimeException("Movie no longer exists!"));
+            if (rentals.containsKey(movie))
+                rentals.put(movie, rentals.get(movie) + 1);
             else
-                rentals.put(r.getMovie(), 1);
+                rentals.put(movie, 1);
         });
 
         return Collections.max(rentals.entrySet(), Comparator.comparing(Map.Entry::getValue));

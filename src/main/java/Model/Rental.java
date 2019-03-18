@@ -3,25 +3,25 @@ package Model;
 import java.time.LocalDate;
 
 public class Rental extends BaseObject<Integer> {
-    private Client client;
-    private Movie movie;
+    private int clientId;
+    private int movieId;
     private LocalDate rentalStart;
     private LocalDate rentalEnd;
 
-    public Rental(int rentalId, Client client, Movie movie, LocalDate rentalStart, LocalDate rentalEnd) {
+    public Rental(int rentalId, int clientId, int movieId, LocalDate rentalStart, LocalDate rentalEnd) {
         super(rentalId);
-        this.client = client;
-        this.movie = movie;
+        this.clientId = clientId;
+        this.movieId = movieId;
         this.rentalStart = rentalStart;
         this.rentalEnd = rentalEnd;
     }
 
-    public Client getClient() {
-        return this.client;
+    public int getClientId() {
+        return this.clientId;
     }
 
-    public Movie getMovie() {
-        return this.movie;
+    public int getMovieId() {
+        return this.movieId;
     }
 
     public LocalDate getRentalStart() {
@@ -35,6 +35,6 @@ public class Rental extends BaseObject<Integer> {
     // TODO: rental duration
 
     public String toString() {
-        return "Rental ID: " + getId() + "; Client: {" + client + "}; Movie: {" + movie + "}; Rental period: " + rentalStart + " -> " + rentalEnd;
+        return "Rental ID: " + getId() + "; Client: {" + clientId + "}; Movie: {" + movieId + "}; Rental period: " + rentalStart + " -> " + rentalEnd;
     }
 }
