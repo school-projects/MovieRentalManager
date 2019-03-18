@@ -16,21 +16,23 @@ import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class Main {
     public static void main(String[] args) throws IOException, ParserConfigurationException, SAXException {
-        MovieService movieService = new MovieService(new XmlRepository<>(new MovieValidator(), new XMLMovieConverter(), "/home/sebi/IdeaProjects/secondpizzaforreal/src/main/java/Files/xmlmovies.xml"));
-        ClientService clientService = new ClientService(new XmlRepository<>(new ClientValidator(), new XMLClientConverter(), "/home/sebi/IdeaProjects/secondpizzaforreal/src/main/java/Files/xmlclients.xml"));
-        RentalService rentalService = new RentalService(new XmlRepository<>(new RentalValidator(), new XMLRentalConverter(), "/home/sebi/IdeaProjects/secondpizzaforreal/src/main/java/Files/xmlrentals.xml"), clientService, movieService);
+        Path filesPath = Paths.get("src", "main", "java", "Files");
+        MovieService movieService = new MovieService(new XmlRepository<>(new MovieValidator(), new XMLMovieConverter(), Paths.get(filesPath.toString(), "xmlmovies.xml").toString()));
+        ClientService clientService = new ClientService(new XmlRepository<>(new ClientValidator(), new XMLClientConverter(), Paths.get(filesPath.toString(), "xmlclients.xml").toString()));
+        RentalService rentalService = new RentalService(new XmlRepository<>(new RentalValidator(), new XMLRentalConverter(), Paths.get(filesPath.toString(), "xmlrentals.xml").toString()), clientService, movieService);
 
         Console c = new Console(movieService, clientService, rentalService);
-//        movieService.addMovie(1,"The Fateful Eight", LocalDate.parse("2016-01-15"));
-//        movieService.addMovie(2,"Men in Black",LocalDate.parse("1997-07-04"));
-//        movieService.addMovie(3,"Bohemian Rhapsody",LocalDate.parse("2018-10-24"));
-//        clientService.addClient(1,"Earl","22nd Avenue, VA");
-//        clientService.addClient(2,"Anne-Marie","23nd Avenue, VA");
-//        clientService.addClient(3,"Bob","New Hampshire, Spring Bd. #5");
+//        movieService.addMovie(1, "The Fateful Eight", LocalDate.parse("2016-01-15"));
+//        movieService.addMovie(2, "Men in Black", LocalDate.parse("1997-07-04"));
+//        movieService.addMovie(3, "Bohemian Rhapsody", LocalDate.parse("2018-10-24"));
+//        clientService.addClient(1, "Earl", "22nd Avenue, VA");
+//        clientService.addClient(2, "Anne-Marie", "23nd Avenue, VA");
+//        clientService.addClient(3, "Bob", "New Hampshire, Spring Bd. #5");
         c.run();
-
     }
 }

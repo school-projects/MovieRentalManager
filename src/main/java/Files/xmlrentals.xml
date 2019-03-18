@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?><objects>
-    <rental id="1">
-        <clientId>1</clientId>
-        <movieId>1</movieId>
-        <rentalStart>2018-01-01</rentalStart>
-        <rentalEnd>2019-01-01</rentalEnd>
-    </rental>
+<rental id="1">
+<clientId>1</clientId>
+<movieId>1</movieId>
+<rentalStart>2018-01-01</rentalStart>
+<rentalEnd>2019-01-01</rentalEnd>
+</rental>
 </objects>
