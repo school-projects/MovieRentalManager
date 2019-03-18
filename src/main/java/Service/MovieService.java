@@ -9,7 +9,6 @@ import Validation.MovieValidator;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.Comparator;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -24,7 +23,7 @@ public class MovieService extends Service<Integer, Movie> {
         super(new MovieValidator());
     }
 
-    public MovieService(Repository<Integer, Movie> repo) {
+    public MovieService(Repository<Integer,Movie> repo){
         super(repo);
     }
 
@@ -42,15 +41,14 @@ public class MovieService extends Service<Integer, Movie> {
 
     /**
      * Filters the repository for movies that were released in a given year
-     *
      * @param year the release year
      * @return an Iterable of movies with the appropiate release date
      */
-    public Iterable<Movie> filterByYear(Integer year) {
-        return StreamSupport.stream(repo.findAll().spliterator(), false).filter(m -> m.getDate().getYear() == year).collect(Collectors.toList());
+    public Iterable<Movie> filterByYear(Integer year){
+        return StreamSupport.stream(repo.findAll().spliterator(), false).filter(m->m.getDate().getYear()==year).collect(Collectors.toList());
     }
 
-    public Iterable<Movie> sortByDate() {
-        return StreamSupport.stream(repo.findAll().spliterator(), false).sorted(Comparator.comparing(Model.Movie::getDate)).collect(Collectors.toList());
+    public Iterable<Movie> sortByDate(){
+        return StreamSupport.stream(repo.findAll().spliterator(),false).sorted(Comparator.comparing(Model.Movie::getDate)).collect(Collectors.toList());
     }
 }
