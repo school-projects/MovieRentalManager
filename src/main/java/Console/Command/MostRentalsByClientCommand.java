@@ -6,6 +6,7 @@ import Service.RentalService;
 
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 
 public class MostRentalsByClientCommand extends Command {
     private RentalService rentalService;
@@ -16,9 +17,12 @@ public class MostRentalsByClientCommand extends Command {
 
     @Override
     public void execute(List<String> params) {
-        // TODO: Check if repo is empty
-        Map.Entry<Client, Integer> maxEntry = rentalService.mostRentalsClient();
-        System.out.println("Client with most rentals was {" + maxEntry.getKey() + "}, with " + maxEntry.getValue() + " rentals");
+        try {
+            Map.Entry<Client, Integer> maxEntry = rentalService.mostRentalsClient();
+            System.out.println("Client with most rentals was {" + maxEntry.getKey() + "}, with " + maxEntry.getValue() + " rentals");
+        } catch (NoSuchElementException e) {
+            System.out.println("There are no rentals!");
+        }
     }
 
     @Override
