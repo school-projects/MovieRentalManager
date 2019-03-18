@@ -35,6 +35,6 @@ public class Rental extends BaseObject<Integer> {
     // TODO: rental duration
 
     public String toString() {
-        return "Rental ID: " + this.getId() + "; Client Name: " + this.getClient().getName() + "; Movie Name: " + this.getMovie().getName();
+        return "Rental ID: " + getId() + "; Client: {" + client + "}; Movie: {" + movie + "}; Rental period: " + rentalStart + " -> " + rentalEnd;
     }
 }
