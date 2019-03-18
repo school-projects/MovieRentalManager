@@ -5,4 +5,16 @@
 <rentalStart>2018-01-01</rentalStart>
 <rentalEnd>2019-01-01</rentalEnd>
 </rental>
+<rental id="2">
+<clientId>5</clientId>
+<movieId>1</movieId>
+<rentalStart>2009-03-04</rentalStart>
+<rentalEnd>2010-03-04</rentalEnd>
+</rental>
+<rental id="3">
+<clientId>5</clientId>
+<movieId>2</movieId>
+<rentalStart>2002-06-07</rentalStart>
+<rentalEnd>2003-09-08</rentalEnd>
+</rental>
 </objects>

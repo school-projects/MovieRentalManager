@@ -1,5 +1,7 @@
 package Repository;
 
+import Exceptions.FileException;
+import Exceptions.UserInputException;
 import Model.BaseObject;
 import Repository.XMLConverter.XMLConverter;
 import Validation.IValidator;
@@ -54,39 +56,25 @@ public class XmlRepository<TYPE,T extends BaseObject<TYPE>> extends Repository<T
 
     }
 
-    public void SaveObjects() throws ParserConfigurationException, IOException, SAXException, TransformerException {
+    public void SaveObjects() throws ParserConfigurationException, IOException, SAXException{
         DocumentBuilderFactory docFactory= DocumentBuilderFactory.newInstance();
         DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
         Document doc = docBuilder.parse(this.filePath);
         Element root = doc.getDocumentElement();
 
-
-//        for(T elem:this.elements.values()){
-//            root.appendChild(converter.toXML(elem,doc));
-//        }
-//
-//
-//        BufferedWriter writer = new BufferedWriter(new FileWriter(filePath,false));
-//
-//        Transformer transformer =
-//                TransformerFactory.newInstance().newTransformer();
-//        transformer.transform(new DOMSource(root),
-//                new StreamResult(new FileOutputStream(this.filePath,false)));
-
-        BufferedWriter writer = new BufferedWriter(new FileWriter(filePath,false));
-        writer.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?><objects>\n");
-        this.elements.values().stream().forEach(p-> {
-            try {
-                writer.write(converter.toFile(p));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
-        writer.write("</objects>");
-        try {
-            writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+        try(BufferedWriter writer = new BufferedWriter(new FileWriter(filePath,false));
+            ){
+            writer.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?><objects>\n");
+            this.elements.values().stream().forEach(p-> {
+                try {
+                    writer.write(converter.toFile(p));
+                } catch (IOException e) {
+                    throw new FileException(e.getMessage());
+                }
+            });
+            writer.write("</objects>");
+        }catch(IOException e){
+            throw new FileException(e.getMessage());
         }
 
 
@@ -97,11 +85,11 @@ public class XmlRepository<TYPE,T extends BaseObject<TYPE>> extends Repository<T
         try {
             try {
                 this.SaveObjects();
-            } catch (ParserConfigurationException | SAXException | TransformerException e) {
+            } catch (ParserConfigurationException | SAXException e) {
                 e.printStackTrace();
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new FileException(e.getMessage());
         }
         return a;
     }
@@ -111,11 +99,11 @@ public class XmlRepository<TYPE,T extends BaseObject<TYPE>> extends Repository<T
         try {
             try {
                 this.SaveObjects();
-            } catch (ParserConfigurationException | SAXException | TransformerException e) {
+            } catch (ParserConfigurationException | SAXException e) {
                 e.printStackTrace();
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new FileException(e.getMessage());
         }
         return a;
     }
@@ -125,11 +113,11 @@ public class XmlRepository<TYPE,T extends BaseObject<TYPE>> extends Repository<T
         try {
             try {
                 this.SaveObjects();
-            } catch (ParserConfigurationException | TransformerException | SAXException e) {
+            } catch (ParserConfigurationException | SAXException e) {
                 e.printStackTrace();
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new FileException(e.getMessage());
         }
         return a;
     }

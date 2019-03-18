@@ -1,5 +1,7 @@
 package Repository;
 
+import Exceptions.FileException;
+import Exceptions.UserInputException;
 import Model.BaseObject;
 import Repository.FileConverter.FileConverter;
 import Validation.IValidator;
@@ -29,20 +31,20 @@ public class FileRepository<TYPE,T extends BaseObject<TYPE>> extends Repository<
         br.close();
     }
     public void writeToFile() throws IOException {
-        BufferedWriter writer = new BufferedWriter(new FileWriter(fileName,false));
-        this.elements.values().stream().forEach(p-> {
-            try {
-                writer.write(fileConverter.toString(p)+"\n");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
 
-        });
-        try {
-            writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+
+        try(BufferedWriter writer = new BufferedWriter(new FileWriter(fileName,false))){
+            this.elements.values().stream().forEach(p-> {
+                try {
+                    writer.write(fileConverter.toString(p)+"\n");
+                } catch (IOException e) {
+                    throw new FileException(e.getMessage());
+                }
+            });
+        }catch(IOException e){
+            throw new FileException(e.getMessage());
         }
+
     }
     @Override
     public Optional<T> add(T elem){
@@ -50,7 +52,7 @@ public class FileRepository<TYPE,T extends BaseObject<TYPE>> extends Repository<
         try {
             this.writeToFile();
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new FileException(e.getMessage());
         }
         return a;
     }
@@ -60,7 +62,7 @@ public class FileRepository<TYPE,T extends BaseObject<TYPE>> extends Repository<
         try {
             this.writeToFile();
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new FileException(e.getMessage());
         }
         return a;
     }
@@ -70,7 +72,7 @@ public class FileRepository<TYPE,T extends BaseObject<TYPE>> extends Repository<
         try {
             this.writeToFile();
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new FileException(e.getMessage());
         }
         return a;
     }

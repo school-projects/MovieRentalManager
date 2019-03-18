@@ -7,4 +7,8 @@
 <name>b</name>
 <releaseDate>2001-01-01</releaseDate>
 </movie>
+<movie id="3">
+<name>b</name>
+<releaseDate>1999-09-09</releaseDate>
+</movie>
 </objects>
