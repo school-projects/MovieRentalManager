@@ -23,8 +23,8 @@ public class AddRentalCommand extends Command {
 
     @Override
     public void execute(List<String> params) {
-        Client client = clientService.getClient(InputConverter.readInt(params.get(1))).orElseThrow(() -> new UserInputException("No client with given ID!"));
-        Movie movie = movieService.getMovie(InputConverter.readInt(params.get(2))).orElseThrow(() -> new UserInputException("No movie with given ID!"));
+        Client client = clientService.get(InputConverter.readInt(params.get(1))).orElseThrow(() -> new UserInputException("No client with given ID!"));
+        Movie movie = movieService.get(InputConverter.readInt(params.get(2))).orElseThrow(() -> new UserInputException("No movie with given ID!"));
 
         rentalService.addRental(InputConverter.readInt(params.get(0)), client, movie, InputConverter.readDate(params.get(3)), InputConverter.readDate(params.get(4)));
     }

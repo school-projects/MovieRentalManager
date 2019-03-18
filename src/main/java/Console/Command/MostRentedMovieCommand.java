@@ -16,7 +16,7 @@ public class MostRentedMovieCommand extends Command {
 
     @Override
     public void execute(List<String> params) {
-        System.out.println(movieService.getMovie(rentalService.mostRentalsMovie()));
+        System.out.println(movieService.get(rentalService.mostRentalsMovie()));
     }
 
     @Override

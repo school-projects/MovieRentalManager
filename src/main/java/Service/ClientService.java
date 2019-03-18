@@ -23,7 +23,7 @@ public class ClientService extends Service<Integer, Client> {
         super(new ClientValidator());
     }
 
-    public ClientService(Repository<Integer,Client> repo){
+    public ClientService(Repository<Integer, Client> repo) {
         super(repo);
     }
 
@@ -39,24 +39,22 @@ public class ClientService extends Service<Integer, Client> {
         super.add(newClient);
     }
 
-    public Optional<Client> getClient(int clientId) {
-        return repo.find(clientId);
-    }
-
     /**
      * Sorts all the clients after their name
+     *
      * @return an Iterable containing the sorted clients
      */
-    public Iterable<Client> sortAlpha(){
-        return StreamSupport.stream(repo.findAll().spliterator(),false).sorted(Comparator.comparing(Client::getName)).collect(Collectors.toList());
+    public Iterable<Client> sortAlpha() {
+        return StreamSupport.stream(repo.findAll().spliterator(), false).sorted(Comparator.comparing(Client::getName)).collect(Collectors.toList());
     }
 
     /**
      * Filters the list for all clients with a name that contains the given string
+     *
      * @param string the search string
      * @return an Iterable containing the filtered clients
      */
-    public Iterable<Client> filterByName(String string){
-        return StreamSupport.stream(repo.findAll().spliterator(), false).filter(s->s.getName().matches("(.)*"+string+"(.)*")).collect(Collectors.toList());
+    public Iterable<Client> filterByName(String string) {
+        return StreamSupport.stream(repo.findAll().spliterator(), false).filter(s -> s.getName().matches("(.)*" + string + "(.)*")).collect(Collectors.toList());
     }
 }

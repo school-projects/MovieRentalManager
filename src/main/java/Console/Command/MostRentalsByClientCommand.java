@@ -18,7 +18,7 @@ public class MostRentalsByClientCommand extends Command {
     @Override
     public void execute(List<String> params) {
         // TODO: Check if repo is empty
-        System.out.println(clientService.getClient(rentalService.mostRentalsClient()));
+        System.out.println(clientService.get(rentalService.mostRentalsClient()));
     }
 
     @Override

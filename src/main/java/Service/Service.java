@@ -43,6 +43,10 @@ public abstract class Service<K, T extends BaseObject<K>> {
         this.repo.add(obj);
     }
 
+    public Optional<T> get(K key) {
+        return this.repo.find(key);
+    }
+
     /**
      * Deletes an object from the underlying repository
      *

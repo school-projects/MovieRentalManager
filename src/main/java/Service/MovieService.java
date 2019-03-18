@@ -40,10 +40,6 @@ public class MovieService extends Service<Integer, Movie> {
         super.add(newMovie);
     }
 
-    public Optional<Movie> getMovie(int movieId) {
-        return repo.find(movieId);
-    }
-
     /**
      * Filters the repository for movies that were released in a given year
      *
