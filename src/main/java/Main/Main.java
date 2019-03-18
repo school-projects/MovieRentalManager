@@ -8,6 +8,7 @@ import Repository.FileConverter.MovieFileConverter;
 import Repository.Repository;
 import Repository.XMLConverter.XMLClientConverter;
 import Repository.XMLConverter.XMLMovieConverter;
+import Repository.XMLConverter.XMLRentalConverter;
 import Service.ClientService;
 import Service.MovieService;
 import Console.Console;
@@ -30,7 +31,7 @@ public class Main {
 
         MovieService movieService = new MovieService(new XmlRepository<>(new MovieValidator(), new XMLMovieConverter(), "Y:\\Git\\mpp\\secondpizzaforreal\\src\\main\\java\\Files\\xmlmovies.xml"));
         ClientService clientService = new ClientService(new XmlRepository<>(new ClientValidator(), new XMLClientConverter(), "Y:\\Git\\mpp\\secondpizzaforreal\\src\\main\\java\\Files\\xmlclients.xml"));
-        RentalService rentalService = new RentalService(new Repository<>(new RentalValidator()));
+        RentalService rentalService = new RentalService(new XmlRepository<>(new RentalValidator(), new XMLRentalConverter(), "Y:\\Git\\mpp\\secondpizzaforreal\\src\\main\\java\\Files\\xmlrentals.xml"), clientService, movieService);
         Console c = new Console(movieService, clientService, rentalService);
 //        movieService.addMovie(1,"The Fateful Eight", LocalDate.parse("2016-01-15"));
 //        movieService.addMovie(2,"Men in Black",LocalDate.parse("1997-07-04"));
