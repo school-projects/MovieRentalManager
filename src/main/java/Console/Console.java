@@ -5,6 +5,7 @@ import Exceptions.UserInputException;
 import Exceptions.ValidatorException;
 import Service.ClientService;
 import Service.MovieService;
+import Service.RentalService;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -16,7 +17,7 @@ public class Console {
 
     private Map<String, Command> commands;
 
-    public Console(MovieService movieService, ClientService clientService) {
+    public Console(MovieService movieService, ClientService clientService, RentalService rentalService) {
         this.commands = new HashMap<>();
 
         commands.put("addmovie", new AddMovieCommand(movieService));
@@ -30,7 +31,9 @@ public class Console {
         commands.put("updateclient", new UpdateClientCommand(clientService));
         commands.put("filterclientname", new FilterClientCommand(clientService));
         commands.put("filtermovieyear", new FilterMovieCommand(movieService));
-        commands.put("sortmovies",new SortMovieCommand(movieService));
+        commands.put("sortmovies", new SortMovieCommand(movieService));
+        commands.put("addrental", new AddRentalCommand(clientService, movieService, rentalService));
+        commands.put("printallrentals", new PrintAllRentalsCommand(rentalService));
     }
 
     /**

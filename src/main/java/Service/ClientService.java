@@ -8,6 +8,7 @@ import Validation.IValidator;
 import Validation.MovieValidator;
 
 import java.util.Comparator;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -36,6 +37,10 @@ public class ClientService extends Service<Integer, Client> {
     public void addClient(int clientId, String clientName, String clientAddress) {
         Client newClient = new Client(clientId, clientName, clientAddress);
         super.add(newClient);
+    }
+
+    public Optional<Client> getClient(int clientId) {
+        return repo.find(clientId);
     }
 
     /**
