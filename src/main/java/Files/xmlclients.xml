@@ -3,4 +3,8 @@
 <name>matei</name>
 <address>abc</address>
 </client>
+<client id="2">
+<name>andrei</name>
+<address>abbb</address>
+</client>
 </objects>
