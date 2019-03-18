@@ -28,8 +28,8 @@ public class Main {
     public static void main(String[] args) throws IOException, ParserConfigurationException, SAXException {
 
 
-        MovieService movieService = new MovieService(new XmlRepository<>(new MovieValidator(), new XMLMovieConverter(), "Y:\\Git\\mpp\\secondpizzaforreal\\src\\main\\java\\Files\\xmlmovies.xml"));
-        ClientService clientService = new ClientService(new XmlRepository<>(new ClientValidator(), new XMLClientConverter(), "Y:\\Git\\mpp\\secondpizzaforreal\\src\\main\\java\\Files\\xmlclients.xml"));
+        MovieService movieService = new MovieService(new XmlRepository<>(new MovieValidator(), new XMLMovieConverter(), "src\\main\\java\\Files\\xmlmovies.xml"));
+        ClientService clientService = new ClientService(new XmlRepository<>(new ClientValidator(), new XMLClientConverter(), "src\\main\\java\\Files\\xmlclients.xml"));
         RentalService rentalService = new RentalService(new Repository<>(new RentalValidator()));
         Console c = new Console(movieService, clientService, rentalService);
 //        movieService.addMovie(1,"The Fateful Eight", LocalDate.parse("2016-01-15"));
