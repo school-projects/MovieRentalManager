@@ -1,22 +1,22 @@
 package Console.Command;
 
-import Service.MovieService;
+import Model.Movie;
 import Service.RentalService;
 
 import java.util.List;
+import java.util.Map;
 
 public class MostRentedMovieCommand extends Command {
-    private MovieService movieService;
     private RentalService rentalService;
 
-    public MostRentedMovieCommand(MovieService movieService, RentalService rentalService) {
-        this.movieService = movieService;
+    public MostRentedMovieCommand(RentalService rentalService) {
         this.rentalService = rentalService;
     }
 
     @Override
     public void execute(List<String> params) {
-        System.out.println(movieService.get(rentalService.mostRentalsMovie()));
+        Map.Entry<Movie, Integer> maxEntry = rentalService.mostRentalsMovie();
+        System.out.println("Most rented movie was {" + maxEntry.getKey() + "}, with " + maxEntry.getValue() + " rentals");
     }
 
     @Override

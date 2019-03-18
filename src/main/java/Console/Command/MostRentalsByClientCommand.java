@@ -5,20 +5,20 @@ import Service.ClientService;
 import Service.RentalService;
 
 import java.util.List;
+import java.util.Map;
 
 public class MostRentalsByClientCommand extends Command {
-    private ClientService clientService;
     private RentalService rentalService;
 
-    public MostRentalsByClientCommand(ClientService clientService, RentalService rentalService) {
-        this.clientService = clientService;
+    public MostRentalsByClientCommand(RentalService rentalService) {
         this.rentalService = rentalService;
     }
 
     @Override
     public void execute(List<String> params) {
         // TODO: Check if repo is empty
-        System.out.println(clientService.get(rentalService.mostRentalsClient()));
+        Map.Entry<Client, Integer> maxEntry = rentalService.mostRentalsClient();
+        System.out.println("Client with most rentals was {" + maxEntry.getKey() + "}, with " + maxEntry.getValue() + " rentals");
     }
 
     @Override
