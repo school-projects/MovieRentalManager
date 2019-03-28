@@ -1,13 +1,13 @@
 package Repository.Paging;
 
-public interface Pageable {
+public interface IPageable {
     /**
      * @return page number; page numbers start at 0.
      */
-    int getPageNumber();
+    Integer getPageNumber();
 
     /**
      * @return the number of elements in a page.
      */
-    int getPageSize();
+    Integer getPageSize();
 }

@@ -2,10 +2,11 @@ package Repository.Paging;
 
 import java.util.stream.Stream;
 
-public interface Page<T> {
-    Pageable getPageable();
+public interface IPage<T> {
 
-    Pageable nextPageable();
+    IPageable getPageable();
+
+    IPageable nextPageable();
 
     Stream<T> getContent();
 
