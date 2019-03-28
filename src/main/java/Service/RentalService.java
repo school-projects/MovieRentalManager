@@ -4,7 +4,7 @@ import Exceptions.ValidatorException;
 import Model.Client;
 import Model.Movie;
 import Model.Rental;
-import Repository.Repository;
+import Repository.IRepository;
 import Validation.RentalValidator;
 
 import java.time.LocalDate;
@@ -22,7 +22,7 @@ public class RentalService extends Service<Integer, Rental> {
         super(new RentalValidator());
     }
 
-    public RentalService(Repository<Integer, Rental> repo, ClientService clientService, MovieService movieService) {
+    public RentalService(IRepository<Integer, Rental> repo, ClientService clientService, MovieService movieService) {
         super(repo);
         this.clientService = clientService;
         this.movieService = movieService;

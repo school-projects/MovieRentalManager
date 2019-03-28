@@ -3,6 +3,7 @@ package Service;
 import Model.BaseObject;
 import Repository.Repository;
 import Validation.IValidator;
+import Repository.IRepository;
 
 import java.util.Optional;
 
@@ -13,7 +14,7 @@ import java.util.Optional;
  * @param <T> object type
  */
 public abstract class Service<K, T extends BaseObject<K>> {
-    Repository<K, T> repo;
+    IRepository<K, T> repo;
 
     /**
      * Creates a Service instance with an empty repository
@@ -29,7 +30,7 @@ public abstract class Service<K, T extends BaseObject<K>> {
      *
      * @param repo existing repository
      */
-    public Service(Repository<K, T> repo) {
+    public Service(IRepository<K, T> repo) {
         this.repo = repo;
     }
 

@@ -1,7 +1,7 @@
 package Service;
 
 import Model.Movie;
-import Repository.Repository;
+import Repository.IRepository;
 import Exceptions.*;
 import Validation.IValidator;
 import Validation.MovieValidator;
@@ -23,7 +23,7 @@ public class MovieService extends Service<Integer, Movie> {
         super(new MovieValidator());
     }
 
-    public MovieService(Repository<Integer,Movie> repo){
+    public MovieService(IRepository<Integer,Movie> repo){
         super(repo);
     }
 

@@ -2,7 +2,7 @@ package Service;
 
 import Exceptions.ValidatorException;
 import Model.Client;
-import Repository.Repository;
+import Repository.IRepository;
 import Validation.ClientValidator;
 import Validation.IValidator;
 import Validation.MovieValidator;
@@ -23,7 +23,7 @@ public class ClientService extends Service<Integer, Client> {
         super(new ClientValidator());
     }
 
-    public ClientService(Repository<Integer, Client> repo) {
+    public ClientService(IRepository<Integer, Client> repo) {
         super(repo);
     }
 

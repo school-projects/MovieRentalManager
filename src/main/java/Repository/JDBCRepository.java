@@ -3,6 +3,7 @@ package Repository;
 import Model.BaseObject;
 import Repository.Paging.IPage;
 import Repository.Paging.IPageable;
+import Repository.Paging.Paginator;
 import Repository.Paging.PagingRepository;
 import Validation.IValidator;
 
@@ -14,6 +15,11 @@ public class JDBCRepository<ID extends Serializable, T extends BaseObject<ID>> i
 
     Map<ID, T> elements;
     IValidator<T> validator;
+    Paginator<T> paginator;
+
+    static final String USER = "postgres";
+    static final String PASS = "pizza";
+    static final String URL = "jdbc:postgresql://127.0.0.1:5432/pizza";
 
     @Override
     public IPage<T> findAll(IPageable pageable) {
