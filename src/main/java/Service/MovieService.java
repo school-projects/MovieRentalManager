@@ -3,6 +3,7 @@ package Service;
 import Model.Movie;
 import Repository.IRepository;
 import Exceptions.*;
+import Repository.Paging.PagingRepository;
 import Validation.IValidator;
 import Validation.MovieValidator;
 
@@ -16,14 +17,9 @@ import java.util.stream.StreamSupport;
  * Service for the Movie class
  */
 public class MovieService extends Service<Integer, Movie> {
-    /**
-     * Creates a MovieService instance with an empty repository
-     */
-    public MovieService() {
-        super(new MovieValidator());
-    }
 
-    public MovieService(IRepository<Integer,Movie> repo){
+
+    public MovieService(PagingRepository<Integer,Movie> repo){
         super(repo);
     }
 

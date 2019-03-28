@@ -29,4 +29,9 @@ public class MostRentalsByClientCommand extends Command {
     public Integer paramNr() {
         return 0;
     }
+
+    @Override
+    public String params() {
+        return "";
+    }
 }

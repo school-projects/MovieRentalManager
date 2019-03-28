@@ -34,4 +34,9 @@ public class UpdateClientCommand extends Command {
     public Integer paramNr() {
         return 3;
     }
+
+    @Override
+    public String params() {
+        return "<ID>,<Name>,<Address>";
+    }
 }

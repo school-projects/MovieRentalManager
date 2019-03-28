@@ -7,6 +7,7 @@ import Model.Rental;
 import Repository.IRepository;
 import Repository.JDBCRepository;
 import Repository.Paging.Paginator;
+import Repository.Paging.PagingRepository;
 import Repository.SQLHandler.ClientSQLHandler;
 import Repository.SQLHandler.MovieSQLHandler;
 import Repository.SQLHandler.RentalSQLHandler;
@@ -20,16 +21,10 @@ import Service.RentalService;
 import Validation.ClientValidator;
 import Validation.MovieValidator;
 import Validation.RentalValidator;
-import org.xml.sax.SAXException;
 
-import javax.xml.parsers.ParserConfigurationException;
-import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+
 
 public class Main {
     public static void main(String[] args){
@@ -39,9 +34,9 @@ public class Main {
 //        IRepository<Integer, Client> cRepo = new XmlRepository<>(new ClientValidator(), new XMLClientConverter(), Paths.get(filesPath.toString(), "xmlclients.xml").toString());
 //        IRepository<Integer, Rental> rRepo = new XmlRepository<>(new RentalValidator(), new XMLRentalConverter(), Paths.get(filesPath.toString(), "xmlrentals.xml").toString());
 
-        IRepository<Integer, Movie> mRepo = new JDBCRepository<>(new MovieValidator(), new Paginator<>(), new MovieSQLHandler());
-        IRepository<Integer, Client> cRepo = new JDBCRepository<>(new ClientValidator(), new Paginator<>(), new ClientSQLHandler());
-        IRepository<Integer, Rental> rRepo = new JDBCRepository<>(new RentalValidator(), new Paginator<>(), new RentalSQLHandler());
+        PagingRepository<Integer, Movie> mRepo = new JDBCRepository<>(new MovieValidator(), new Paginator<>(), new MovieSQLHandler());
+        PagingRepository<Integer, Client> cRepo = new JDBCRepository<>(new ClientValidator(), new Paginator<>(), new ClientSQLHandler());
+        PagingRepository<Integer, Rental> rRepo = new JDBCRepository<>(new RentalValidator(), new Paginator<>(), new RentalSQLHandler());
 
         MovieService movieService = new MovieService(mRepo);
         ClientService clientService = new ClientService(cRepo);

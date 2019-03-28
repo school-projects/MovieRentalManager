@@ -34,4 +34,9 @@ public class DeleteObjectCommand extends Command{
     public Integer paramNr() {
         return 1;
     }
+
+    @Override
+    public String params() {
+        return "<ID>";
+    }
 }

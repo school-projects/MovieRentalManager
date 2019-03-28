@@ -1,10 +1,16 @@
 package Service;
 
 import Model.BaseObject;
-import Repository.Repository;
+import Repository.Paging.IPage;
+import Repository.Paging.IPageable;
+import Repository.Paging.Implementation.Page;
+import Repository.Paging.Implementation.Pageable;
+import Repository.Paging.PagingRepository;
+import Repository.JDBCRepository;
 import Validation.IValidator;
 import Repository.IRepository;
 
+import java.io.Serializable;
 import java.util.Optional;
 
 /**
@@ -13,25 +19,19 @@ import java.util.Optional;
  * @param <K> the id type for object type T
  * @param <T> object type
  */
-public abstract class Service<K, T extends BaseObject<K>> {
-    IRepository<K, T> repo;
+public abstract class Service<K extends Serializable, T extends BaseObject<K>> {
+    protected PagingRepository<K, T> repo;
+    private IPageable pag;
 
-    /**
-     * Creates a Service instance with an empty repository
-     *
-     * @param validator validator used in repository
-     */
-    public Service(IValidator<T> validator) {
-        this.repo = new Repository<>(validator);
-    }
 
     /**
      * Creates a Service instance based on a given repository
      *
      * @param repo existing repository
      */
-    public Service(IRepository<K, T> repo) {
+    public Service(PagingRepository<K, T> repo) {
         this.repo = repo;
+        this.pag = new Pageable(0,3);
     }
 
     /**
@@ -73,5 +73,19 @@ public abstract class Service<K, T extends BaseObject<K>> {
      */
     public Iterable<T> getAll() {
         return this.repo.findAll();
+    }
+
+    public IPage<T> getNextPage() {
+        IPage<T> p = repo.findAll(pag);
+        pag = p.nextPageable();
+        return p;
+    }
+
+    public void resetPage(){
+        pag = new Pageable(0,pag.getPageSize());
+    }
+
+    public void setPageSize(Integer sz){
+        pag = new Pageable(0, sz);
     }
 }

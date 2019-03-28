@@ -3,6 +3,7 @@ package Service;
 import Exceptions.ValidatorException;
 import Model.Client;
 import Repository.IRepository;
+import Repository.Paging.PagingRepository;
 import Validation.ClientValidator;
 import Validation.IValidator;
 import Validation.MovieValidator;
@@ -16,14 +17,9 @@ import java.util.stream.StreamSupport;
  * Service for the Client class
  */
 public class ClientService extends Service<Integer, Client> {
-    /**
-     * Creates a ClientService instance with an empty repository
-     */
-    public ClientService() {
-        super(new ClientValidator());
-    }
 
-    public ClientService(IRepository<Integer, Client> repo) {
+
+    public ClientService(PagingRepository<Integer, Client> repo) {
         super(repo);
     }
 

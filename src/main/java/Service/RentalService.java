@@ -5,6 +5,7 @@ import Model.Client;
 import Model.Movie;
 import Model.Rental;
 import Repository.IRepository;
+import Repository.Paging.PagingRepository;
 import Validation.RentalValidator;
 
 import java.time.LocalDate;
@@ -18,11 +19,7 @@ public class RentalService extends Service<Integer, Rental> {
     private ClientService clientService;
     private MovieService movieService;
 
-    public RentalService() {
-        super(new RentalValidator());
-    }
-
-    public RentalService(IRepository<Integer, Rental> repo, ClientService clientService, MovieService movieService) {
+    public RentalService(PagingRepository<Integer, Rental> repo, ClientService clientService, MovieService movieService) {
         super(repo);
         this.clientService = clientService;
         this.movieService = movieService;
@@ -30,7 +27,7 @@ public class RentalService extends Service<Integer, Rental> {
 
     public void addRental(int rentalId, Client client, Movie movie, LocalDate rentalStart, LocalDate rentalEnd) {
         Rental newRental = new Rental(rentalId, client.getId(), movie.getId(), rentalStart, rentalEnd);
-        repo.findAll().forEach(r->{if(r.getClientId()==newRental.getClientId() && r.getMovieId() == newRental.getMovieId() &&
+        repo.findAll().forEach(r->{if(r.getClientId().equals(newRental.getClientId()) && r.getMovieId().equals(newRental.getMovieId()) &&
                 ((r.getRentalStart().isBefore(newRental.getRentalStart()) && r.getRentalEnd().isAfter(newRental.getRentalEnd())) || (r.getRentalStart().isAfter(newRental.getRentalStart()) && r.getRentalEnd().isBefore(newRental.getRentalEnd())) ))
             throw new ValidatorException("That client is already renting that movie!");});
         super.add(newRental);

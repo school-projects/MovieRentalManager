@@ -34,5 +34,10 @@ public class AddMovieCommand extends Command {
         return 3;
     }
 
+    @Override
+    public String params() {
+        return "<ID>,<Name>,<ReleaseDate>";
+    }
+
 
 }

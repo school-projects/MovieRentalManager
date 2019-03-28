@@ -22,7 +22,7 @@ public class Page<T> implements IPage<T> {
 
     @Override
     public IPageable nextPageable() {
-        return new Pageable(pageable.getPageSize(), pageable.getPageNumber());
+        return new Pageable(pageable.getPageNumber()+1, pageable.getPageSize());
     }
 
     @Override

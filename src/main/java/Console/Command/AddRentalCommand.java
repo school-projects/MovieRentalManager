@@ -33,4 +33,9 @@ public class AddRentalCommand extends Command {
     public Integer paramNr() {
         return 5;
     }
+
+    @Override
+    public String params() {
+        return "<ID>,<CID>,<MID>,<Start>,<End>";
+    }
 }

@@ -17,4 +17,6 @@ public abstract class Command {
      * @return the expected number of parameters
      */
     public abstract Integer paramNr();
+
+    public abstract String params();
 }
