@@ -16,11 +16,11 @@ public class Rental extends BaseObject<Integer> {
         this.rentalEnd = rentalEnd;
     }
 
-    public int getClientId() {
+    public Integer getClientId() {
         return this.clientId;
     }
 
-    public int getMovieId() {
+    public Integer getMovieId() {
         return this.movieId;
     }
 
