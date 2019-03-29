@@ -13,7 +13,7 @@ public class RentalSQLHandler implements SQLHandler<Integer, Rental> {
     private static final String table = "Rental";
 
     @Override
-    public String loadAll() {
+    public String findAll() {
         return "SELECT * " +
                 "FROM " + table;
     }
@@ -37,6 +37,13 @@ public class RentalSQLHandler implements SQLHandler<Integer, Rental> {
                 " SET CID=" + obj.getClientId().toString() + ", MID=" + obj.getMovieId() + ", RentalStart='" +
                 obj.getRentalStart().toString() + "', RentalEnd= '" + obj.getRentalEnd().toString() +
                 "' WHERE ID=" + obj.getId().toString();
+    }
+
+    @Override
+    public String find(Integer integer) {
+        return "SELECT * " +
+                "FROM " + table+
+                " WHERE ID=" + integer.toString();
     }
 
     @Override

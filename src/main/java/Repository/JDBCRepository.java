@@ -13,26 +13,36 @@ import java.io.Serializable;
 import java.sql.*;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
-public class JDBCRepository<ID extends Serializable, T extends BaseObject<ID>> extends Repository<ID,T> implements PagingRepository<ID, T>{
+public class JDBCRepository<ID extends Serializable, T extends BaseObject<ID>>  implements PagingRepository<ID, T>{
     private Paginator<T> paginator;
     private SQLHandler<ID, T> gen;
+    private IValidator<T> val;
 
     private static final String USER = "postgres";
     private static final String PASS = "pizza";
     private static final String URL = "jdbc:postgresql://127.0.0.1:5432/pizza";
 
     public JDBCRepository(IValidator<T> val, Paginator<T> paginator, SQLHandler<ID,T> gen) {
-        super(val);
+        this.val = val;
         this.paginator = paginator;
         this.gen = gen;
-        load();
     }
 
-    private void load(){
+    public Optional<T> find(ID id){
         try(Connection conn = DriverManager.getConnection(URL, USER, PASS); Statement stmt = conn.createStatement()){
-            stmt.execute(gen.loadAll());
-            elements = gen.fromResultSet(stmt.getResultSet()).collect(Collectors.toMap(T::getId, it->it));
+            stmt.execute(gen.find(id));
+            return Optional.ofNullable(gen.fromResultSet(stmt.getResultSet()).collect(Collectors.toMap(T::getId,a->a)).get(id));
+        }catch(SQLException e){
+            throw new FileException("Couldn't open Database for loading!");
+        }
+    }
+
+    public Iterable<T> findAll(){
+        try(Connection conn = DriverManager.getConnection(URL, USER, PASS); Statement stmt = conn.createStatement()){
+            stmt.execute(gen.findAll());
+            return gen.fromResultSet(stmt.getResultSet()).collect(Collectors.toList());
         }catch(SQLException e){
             throw new FileException("Couldn't open Database for loading!");
         }
@@ -40,12 +50,13 @@ public class JDBCRepository<ID extends Serializable, T extends BaseObject<ID>> e
 
     @Override
     public IPage<T> findAll(IPageable pageable) {
-        return paginator.page(elements.values().stream(), pageable);
+        return paginator.page(StreamSupport.stream(findAll().spliterator(), false), pageable);
     }
 
     @Override
     public Optional<T> add(T elem) {
-        Optional<T> ret = super.add(elem);
+        val.validate(elem);
+        Optional<T> ret = find(elem.getId());
         if(!ret.isPresent())
             try(Connection conn = DriverManager.getConnection(URL, USER, PASS); Statement stmt = conn.createStatement()){
                 stmt.execute(gen.insert(elem));
@@ -58,7 +69,7 @@ public class JDBCRepository<ID extends Serializable, T extends BaseObject<ID>> e
 
     @Override
     public Optional<T> delete(ID id) {
-        Optional<T> ret = super.delete(id);
+        Optional<T> ret = find(id);
         if(ret.isPresent())
             try(Connection conn = DriverManager.getConnection(URL, USER, PASS); Statement stmt = conn.createStatement()){
                 stmt.execute(gen.delete(id));
@@ -70,7 +81,8 @@ public class JDBCRepository<ID extends Serializable, T extends BaseObject<ID>> e
 
     @Override
     public Optional<T> update(T elem) {
-        Optional<T> ret = super.update(elem);
+        val.validate(elem);
+        Optional<T> ret = find(elem.getId());
         if(ret.isPresent())
             try(Connection conn = DriverManager.getConnection(URL, USER, PASS); Statement stmt = conn.createStatement()){
                 stmt.execute(gen.update(elem));

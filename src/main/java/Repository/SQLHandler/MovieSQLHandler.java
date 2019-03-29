@@ -13,7 +13,7 @@ public class MovieSQLHandler implements SQLHandler<Integer, Movie> {
     private static final String table = "Movie";
 
     @Override
-    public String loadAll() {
+    public String findAll() {
         return "SELECT * " +
                 "FROM " + table;
     }
@@ -35,6 +35,13 @@ public class MovieSQLHandler implements SQLHandler<Integer, Movie> {
         return "UPDATE " + table +
                 " SET Name='" + obj.getName() + "', ReleaseDate='" + obj.getDate().toString()+
                 "' WHERE ID=" + obj.getId().toString();
+    }
+
+    @Override
+    public String find(Integer integer) {
+        return "SELECT * " +
+                "FROM " + table+
+                " WHERE ID=" + integer.toString();
     }
 
     @Override

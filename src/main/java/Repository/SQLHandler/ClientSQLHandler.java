@@ -13,7 +13,7 @@ public class ClientSQLHandler implements SQLHandler<Integer, Client> {
     private static final String table = "Client";
 
     @Override
-    public String loadAll() {
+    public String findAll() {
         return "SELECT * " +
                 "FROM " + table;
     }
@@ -35,6 +35,13 @@ public class ClientSQLHandler implements SQLHandler<Integer, Client> {
         return "UPDATE " + table +
                 " SET Name='" + obj.getName() + "', Address='" + obj.getAdress()+
                 "' WHERE ID=" + obj.getId().toString();
+    }
+
+    @Override
+    public String find(Integer integer) {
+        return "SELECT * " +
+                "FROM " + table+
+                " WHERE ID=" + integer.toString();
     }
 
     @Override
