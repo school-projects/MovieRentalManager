@@ -14,17 +14,21 @@ public class PagePrintCommand extends Command {
         this.service = service;
     }
 
+    private void printPage(){
+        service.getNextPage().getContent().forEach(System.out::println);
+    }
+
     @Override
     public void execute(List<String> params) {
         service.setPageSize(InputConverter.readInt(params.get(0)));
         Scanner sc = new Scanner(System.in);
         boolean w = true;
+        printPage();
         while(w){
-            service.getNextPage().getContent().forEach(System.out::println);
-
             System.out.print("N - next page, X - stop: ");
             switch (sc.nextLine()){
                 case "N":
+                    printPage();
                     continue;
                 case "X":
                     service.resetPage();
