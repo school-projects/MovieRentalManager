@@ -36,6 +36,9 @@ public class Console {
         commands.put("printallrentals", new PrintAllRentalsCommand(rentalService));
         commands.put("mostrentalsclient", new MostRentalsByClientCommand(rentalService));
         commands.put("mostrentalsmovie", new MostRentedMovieCommand(rentalService));
+        commands.put("pageprintclients", new PagePrintCommand(clientService));
+        commands.put("pageprintmovies", new PagePrintCommand(movieService));
+        commands.put("pageprintrentals", new PagePrintCommand(rentalService));
     }
 
     /**
