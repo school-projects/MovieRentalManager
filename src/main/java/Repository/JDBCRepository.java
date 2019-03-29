@@ -73,7 +73,6 @@ public class JDBCRepository<ID extends Serializable, T extends BaseObject<ID>> e
         Optional<T> ret = super.update(elem);
         if(ret.isPresent())
             try(Connection conn = DriverManager.getConnection(URL, USER, PASS); Statement stmt = conn.createStatement()){
-                System.out.println(gen.update(elem));
                 stmt.execute(gen.update(elem));
             }
             catch(SQLException e){
