@@ -86,7 +86,7 @@ public class Console {
                     break;
 
                 if (cmd.equals("help")) {
-                    commands.keySet().stream().map(s->s+" "+commands.get(s).params()).forEach(System.out::println);
+                    commands.keySet().stream().map(s->s+" "+commands.get(s).params()).sorted().forEach(System.out::println);
                     System.out.println("exit");
                     continue;
                 }

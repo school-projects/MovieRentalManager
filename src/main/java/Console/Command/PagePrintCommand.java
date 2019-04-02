@@ -31,7 +31,6 @@ public class PagePrintCommand extends Command {
                     printPage();
                     continue;
                 case "X":
-                    service.resetPage();
                     w=false;
                     break;
                 default:

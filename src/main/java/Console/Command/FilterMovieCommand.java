@@ -26,6 +26,6 @@ public class FilterMovieCommand extends Command{
 
     @Override
     public String params() {
-        return "<Date>";
+        return "<Year>";
     }
 }
